@@ -1,0 +1,2868 @@
+[
+  {
+    "concept": "Syntax and semantics",
+    "explanation": "In programming, syntax refers to the set of rules that define the structure and 'grammar' of the code. It is about how the code is written, ensuring the compiler or interpreter can parse it without error. For example, a missing semicolon in C++ or improper indentation in Python is a syntax error. Semantics, on the other hand, refers to the actual meaning and behavior of that code when executed. A program can be syntactically perfect but semantically broken, such as an infinite loop or an off-by-one error. For a startup-level SDE, understanding this distinction is crucial for debugging: syntax errors are caught by tools, while semantic errors are caught by logic, testing, and understanding user requirements. High-quality code balances strict adherence to language syntax with clear, intentional semantics that make the logic easy for other developers to follow.",
+    "core_signals": [
+      "Grammar vs Meaning",
+      "Compiler/Parser errors",
+      "Logic flow",
+      "Valid structure",
+      "Runtime behavior",
+      "Debugging distinction"
+    ],
+    "advanced_signals": [
+      "Static vs Dynamic analysis",
+      "Semantic versioning awareness",
+      "Language-agnostic logic patterns"
+    ],
+    "common_misconceptions": [
+      "If it compiles, it works",
+      "Conflating syntax errors with logic bugs",
+      "Thinking syntax is the most important part of a language"
+    ]
+  },
+  {
+    "concept": "Primitive and reference data types",
+    "explanation": "Data types define how data is stored and manipulated. Primitives (like integers, booleans, and chars) are the most basic building blocks; they typically store the actual value directly in 'stack' memory. They are immutable and passed by value. Reference types (like objects, arrays, and classes) store a memory address—a pointer—to the location where the actual data resides, usually in the 'heap'. When you copy a reference type, you are copying the pointer, not the data itself. In a pragmatic startup environment, failing to understand this leads to 'spooky action at a distance,' where modifying an object in one function unexpectedly changes it elsewhere. Choosing the right type impacts memory efficiency and prevents side effects in complex state management.",
+    "core_signals": [
+      "Value vs Reference",
+      "Stack vs Heap",
+      "Memory address",
+      "Immutability",
+      "Pass-by-value",
+      "Object references"
+    ],
+    "advanced_signals": [
+      "Shallow vs Deep copy",
+      "Memory overhead of objects",
+      "Garbage collection implications"
+    ],
+    "common_misconceptions": [
+      "Thinking strings are always primitives (varies by language)",
+      "Expecting a change to a primitive inside a function to affect the caller",
+      "Assuming 'const' makes an object's properties immutable"
+    ]
+  },
+  {
+    "concept": "Control flow statements (if-else, loops, switch)",
+    "explanation": "Control flow dictates the order in which individual statements are executed. Conditional statements like 'if-else' and 'switch' allow for branching logic, while 'loops' (for, while, do-while) enable repetitive tasks. In a startup context, clean control flow is synonymous with readable code. 'Switch' statements are often preferred over long 'if-else' chains for readability and potential compiler optimizations. Loops must be handled with care to avoid O(n^2) complexity or infinite execution. Pragmatic engineers look for ways to reduce nesting (the 'Arrow Anti-pattern') by using early returns or guard clauses, ensuring the 'happy path' of the code remains clear and maintainable.",
+    "core_signals": [
+      "Branching logic",
+      "Iteration",
+      "Conditionals",
+      "Break and Continue",
+      "Early returns",
+      "Boolean evaluation"
+    ],
+    "advanced_signals": [
+      "Cyclomatic complexity",
+      "Guard clauses",
+      "Tail call optimization"
+    ],
+    "common_misconceptions": [
+      "Overusing else-if instead of switch",
+      "Forgetting the 'break' in a switch statement",
+      "Thinking loops are always the most efficient way to process data"
+    ]
+  },
+  {
+    "concept": "Functions and parameters",
+    "explanation": "Functions are reusable blocks of code designed to perform a specific task, acting as the primary tool for decomposition in programming. Parameters are the placeholders defined in the function signature, while arguments are the actual values passed during a call. Understanding the difference between 'Pass-by-Value' (sending a copy) and 'Pass-by-Reference' (sending a pointer) is vital for predicting how data changes. For a junior SDE, the focus should be on writing 'Pure Functions' where possible—functions that return the same output for the same input without side effects. This makes code modular, easier to test, and significantly reduces the time spent on debugging in a fast-paced environment.",
+    "core_signals": [
+      "Reusability",
+      "Arguments vs Parameters",
+      "Return values",
+      "Scope isolation",
+      "Modularity",
+      "Function signature"
+    ],
+    "advanced_signals": [
+      "Side effects",
+      "Pure functions",
+      "Higher-order functions"
+    ],
+    "common_misconceptions": [
+      "Confusing parameters with arguments",
+      "Writing functions that do too many things",
+      "Not understanding how 'return' exits the function immediately"
+    ]
+  },
+  {
+    "concept": "Variable scope (block vs function)",
+    "explanation": "Scope determines the visibility and lifetime of variables. Function scope means a variable is accessible anywhere within the function it was declared (common with 'var' in JS). Block scope is more restrictive, limiting a variable's visibility to the specific pair of curly braces `{}` (like an if-block or loop) where it was defined (standard for 'let' and 'const'). For a fresher, mastering scope is about preventing variable name collisions and accidental overrides. In modern development, block scope is the preferred standard because it makes the 'life' of a variable predictable and reduces memory leaks by allowing the system to reclaim memory as soon as the block ends.",
+    "core_signals": [
+      "Visibility",
+      "Lifetime",
+      "Global vs Local",
+      "Curly braces",
+      "Namespace",
+      "Shadowing"
+    ],
+    "advanced_signals": [
+      "Lexical environment",
+      "Memory management/GC",
+      "Temporal Dead Zone"
+    ],
+    "common_misconceptions": [
+      "Thinking all variables are global by default",
+      "Assuming 'if' statements create new scopes in all languages",
+      "Confusing scope with context (this keyword)"
+    ]
+  },
+  {
+    "concept": "Closures basics",
+    "explanation": "A closure is a feature where an inner function has access to the outer (enclosing) function's variables even after the outer function has finished executing. It 'closes over' its lexical environment. This is a powerful tool for data privacy (creating private variables) and functional programming patterns. In a startup, closures are frequently used in asynchronous code, event handlers, and factory functions. While they are incredibly useful for maintaining state without global variables, junior developers must be careful: because closures keep references to outer variables, they can inadvertently lead to higher memory usage if not managed properly.",
+    "core_signals": [
+      "Inner function",
+      "Lexical scope",
+      "State preservation",
+      "Data privacy",
+      "Persistent variables",
+      "Encapsulation"
+    ],
+    "advanced_signals": [
+      "Function factories",
+      "Memory leaks via closures",
+      "Module pattern"
+    ],
+    "common_misconceptions": [
+      "Thinking closures are just nested functions",
+      "Believing closures copy values rather than referencing them",
+      "Assuming closures are only a JavaScript concept"
+    ]
+  },
+  {
+    "concept": "Hoisting (var vs let/const)",
+    "explanation": "Hoisting is a behavior where variable and function declarations are moved to the top of their containing scope during the compilation phase. However, only the declaration is hoisted, not the initialization. In older standards (using 'var'), this often led to confusing 'undefined' values. Modern standards ('let' and 'const') also hoist, but they reside in a 'Temporal Dead Zone'—accessing them before declaration results in a ReferenceError. For a fresher, the pragmatic takeaway is to always use 'let' and 'const' to ensure the code executes in the order it is read, making the logic predictable and less prone to the 'silent failures' common with 'var'.",
+    "core_signals": [
+      "Declaration vs Initialization",
+      "Temporal Dead Zone",
+      "Execution context",
+      "ReferenceError",
+      "Undefined behavior",
+      "Compilation phase"
+    ],
+    "advanced_signals": [
+      "Function hoisting vs variable hoisting",
+      "Under-the-hood parsing",
+      "Best practices for declaration placement"
+    ],
+    "common_misconceptions": [
+      "Thinking code is physically moved",
+      "Believing let/const are not hoisted at all",
+      "Assuming hoisting happens at runtime"
+    ]
+  },
+  {
+    "concept": "Classes and objects",
+    "explanation": "A class is a blueprint or a template for creating objects. It defines the properties (attributes) and behaviors (methods) that the objects will have. An object is a specific 'instance' of that class, containing real data. Think of a 'Car' class as the technical drawing and 'Your Honda Civic' as the object. In an L1 role, understanding this is fundamental to organizing code logically. Instead of having disconnected variables, you group related data and logic together. This 'Startup-Pragmatic' approach allows teams to model real-world entities (like User, Invoice, or Product) in a way that is intuitive and scalable.",
+    "core_signals": [
+      "Blueprint",
+      "Instance",
+      "Properties/Attributes",
+      "Methods/Behaviors",
+      "Constructor",
+      "Instantiation"
+    ],
+    "advanced_signals": [
+      "Memory allocation for instances",
+      "Static vs Instance members",
+      "Prototype-based vs Class-based"
+    ],
+    "common_misconceptions": [
+      "Confusing the class itself with an instance",
+      "Thinking classes are required for all programming",
+      "Not realizing methods are shared while data is unique per instance"
+    ]
+  },
+  {
+    "concept": "Inheritance and polymorphism basics",
+    "explanation": "Inheritance allows a class (child) to derive attributes and methods from another class (parent), promoting code reuse and establishing a 'is-a' relationship. Polymorphism, which means 'many shapes,' allows a single interface to represent different underlying forms. For example, a 'Shape' class might have a 'draw()' method, but 'Circle' and 'Square' implement 'draw()' differently. This is vital for writing flexible code; you can write a function that handles any 'Shape' without needing to know the specific type. Pragmatically, juniors should be wary of 'deep inheritance trees' which become hard to maintain, often preferring 'composition' for flatter, more flexible designs.",
+    "core_signals": [
+      "Is-a relationship",
+      "Method overriding",
+      "Code reuse",
+      "Parent/Child classes",
+      "Interfaces",
+      "Dynamic dispatch"
+    ],
+    "advanced_signals": [
+      "Abstract classes vs Interfaces",
+      "Liskov Substitution Principle",
+      "Composition over Inheritance"
+    ],
+    "common_misconceptions": [
+      "Inheriting just to get access to a single method",
+      "Confusing Overloading (same name, different params) with Overriding",
+      "Thinking inheritance is the only way to share code"
+    ]
+  },
+  {
+    "concept": "Encapsulation and abstraction",
+    "explanation": "Encapsulation is the practice of bundling data and methods into a single unit (class) and restricting direct access to some of the object's components (using private/public modifiers). This protects the internal state from unintended interference. Abstraction is about 'hiding complexity'—showing only the necessary features of an object to the outside world. Think of a TV: Abstraction is the remote control (simple buttons), while Encapsulation is the plastic casing protecting the wires inside. For an SDE, these principles ensure that if you change the internal logic of a module, you don't break the entire system, provided the 'public interface' remains the same.",
+    "core_signals": [
+      "Data hiding",
+      "Access modifiers",
+      "Public interface",
+      "Information hiding",
+      "Reducing complexity",
+      "Getters and Setters"
+    ],
+    "advanced_signals": [
+      "Tight vs Loose coupling",
+      "Module boundaries",
+      "API design principles"
+    ],
+    "common_misconceptions": [
+      "Thinking encapsulation is just about making variables private",
+      "Using abstraction and encapsulation interchangeably",
+      "Over-abstracting simple logic too early (Over-engineering)"
+    ]
+  },
+  {
+    "concept": "Try-catch / error handling mechanisms",
+    "explanation": "Try-catch blocks are the primary mechanism for managing runtime exceptions without crashing the entire application. In a startup context, robust error handling is the difference between a minor bug and a complete service outage. The 'try' block contains code that might fail, while 'catch' gracefully handles the error, often logging it or providing a fallback. A critical part often overlooked is the 'finally' block, which ensures resources like file handles or database connections are closed regardless of success or failure. Good error handling involves throwing specific errors rather than generic strings, allowing the calling code to react differently based on the error type. In production, error handling isn't just about preventing crashes; it's about observability—knowing exactly why and where a failure occurred so it can be fixed quickly.",
+    "core_signals": [
+      "Graceful degradation",
+      "Exception propagation",
+      "Finally block for cleanup",
+      "Throwing custom errors",
+      "Error logging",
+      "Input validation",
+      "Try-catch scope"
+    ],
+    "advanced_signals": [
+      "Global error boundaries",
+      "Idempotency in error recovery",
+      "Differentiating operational vs programmer errors"
+    ],
+    "common_misconceptions": [
+      "Using try-catch for flow control (logic)",
+      "Swallowing errors with empty catch blocks",
+      "Thinking catch handles syntax errors"
+    ]
+  },
+  {
+    "concept": "Event loop intuition",
+    "explanation": "The event loop is the secret sauce behind high-performance, single-threaded environments like Node.js. It allows a program to perform non-blocking I/O operations by offloading tasks to the system kernel whenever possible. Imagine a waiter (the thread) taking an order (an event) and passing it to the kitchen (the OS/Background). Instead of standing at the kitchen window waiting for the food, the waiter moves to the next table. When the food is ready, a notification is placed in a queue, and the waiter picks it up when they are free. This 'loop' constantly checks if the call stack is empty; if it is, it pushes the next pending callback from the task queue onto the stack. For a junior, understanding this is vital for writing code that doesn't 'freeze' the application during heavy processing.",
+    "core_signals": [
+      "Call stack",
+      "Callback queue",
+      "Non-blocking I/O",
+      "Task prioritization",
+      "Single-threaded execution",
+      "Microtasks vs Macrotasks"
+    ],
+    "advanced_signals": [
+      "Starvation of the event loop",
+      "Thread pool (libuv) internals",
+      "Zero-delay (setTimeout 0) behavior"
+    ],
+    "common_misconceptions": [
+      "Thinking the event loop makes code multi-threaded",
+      "Believing setTimeout guarantees exact timing",
+      "Assuming the loop runs in parallel with the stack"
+    ]
+  },
+  {
+    "concept": "Promises and chaining",
+    "explanation": "A Promise is an object representing the eventual completion (or failure) of an asynchronous operation and its resulting value. It acts as a placeholder for a future result, moving away from 'callback hell' where nested functions become unreadable. Chaining is the most powerful feature of Promises: by returning a new Promise from a '.then()' block, you can pipe data through a sequence of asynchronous steps linearly. This makes the code read almost like synchronous logic. If any step in the chain fails, the error 'bubbles down' to the nearest '.catch()' block. This structure is essential in modern web development for sequential API calls or data processing pipelines where the output of one step is the required input for the next.",
+    "core_signals": [
+      "Pending/Fulfilled/Rejected states",
+      "Then/Catch/Finally",
+      "Avoiding Callback Hell",
+      "Promise.all for concurrency",
+      "Resolving vs Rejecting",
+      "Flattening nested logic"
+    ],
+    "advanced_signals": [
+      "Promise race conditions",
+      "Manual Promise wrapping (Promisification)",
+      "Return values inside .then() creating new promises"
+    ],
+    "common_misconceptions": [
+      "Forgetting to return the promise in a chain",
+      "Thinking Promises execute in parallel by default",
+      "Mixing callbacks and promises inconsistently"
+    ]
+  },
+  {
+    "concept": "async/await syntax and usage",
+    "explanation": "Async/await is syntactic sugar built on top of Promises, introduced to make asynchronous code look and behave more like synchronous code. When you mark a function as 'async', it automatically returns a Promise. The 'await' keyword pauses the execution of that specific function until the Promise settles, effectively 'unwrapping' the value. This significantly improves readability and makes error handling more intuitive, as you can use standard try-catch blocks instead of .catch() methods. In a startup environment, using async/await reduces 'cognitive load' for the team, making the codebase easier to maintain. However, juniors must be careful not to 'await' every call sequentially when tasks could actually be performed in parallel, which can lead to performance bottlenecks.",
+    "core_signals": [
+      "Syntactic sugar",
+      "Implicit promise return",
+      "Pause execution locally",
+      "Try-catch integration",
+      "Readability and maintainability",
+      "Top-level await"
+    ],
+    "advanced_signals": [
+      "Sequential vs Parallel execution trade-offs",
+      "Error bubbling in nested async calls",
+      "Performance impact of unnecessary awaiting"
+    ],
+    "common_misconceptions": [
+      "Thinking 'await' blocks the entire main thread",
+      "Using 'await' inside a standard forEach loop",
+      "Forgetting 'async' keyword on the wrapper function"
+    ]
+  },
+  {
+    "concept": "Blocking vs non-blocking operations",
+    "explanation": "This concept differentiates how a system handles time-consuming tasks like reading a file or querying a database. A 'blocking' operation halts the execution of the further code until the current task finishes—essentially 'freezing' the program. In contrast, 'non-blocking' operations initiate the task and immediately move to the next line of code, providing a callback or promise to handle the result later. For a startup scaling to many users, non-blocking code is non-negotiable because it allows a single server to handle thousands of concurrent connections. Blocking code on a web server would mean every user has to wait for the person in front of them to finish their database request, leading to massive latency and a poor user experience.",
+    "core_signals": [
+      "Synchronous vs Asynchronous",
+      "Concurrency vs Parallelism",
+      "CPU-bound vs I/O-bound",
+      "Throughput",
+      "Execution flow",
+      "Context switching"
+    ],
+    "advanced_signals": [
+      "Impact on thread utilization",
+      "Starvation scenarios",
+      "Kernel-level vs Application-level blocking"
+    ],
+    "common_misconceptions": [
+      "Thinking non-blocking means 'faster' for a single task",
+      "Confusing multi-threading with non-blocking I/O",
+      "Assuming all code is non-blocking by default"
+    ]
+  },
+  {
+    "concept": "Naming conventions and clean code principles",
+    "explanation": "Clean code is code that is easy to read and easy to change. The most fundamental aspect is naming: variables, functions, and classes should have intent-revealing names. A variable named 'd' is bad; 'daysSinceCreation' is good. Functions should be verbs (e.g., 'calculateTotal') and should do exactly what they say. Beyond naming, clean code follows principles like DRY (Don't Repeat Yourself) and KISS (Keep It Simple, Stupid). In a fast-moving startup, 'clever' code is a liability because it's hard for teammates to debug. Readable code acts as its own documentation, reducing the time spent in meetings explaining what a specific module does. It’s about writing code for the human who will read it six months from now, not just for the compiler.",
+    "core_signals": [
+      "Intent-revealing names",
+      "DRY (Don't Repeat Yourself)",
+      "KISS (Keep It Simple)",
+      "Consistency",
+      "Self-documenting code",
+      "Avoiding magic numbers"
+    ],
+    "advanced_signals": [
+      "Naming based on abstraction levels",
+      "Domain-driven naming",
+      "Boy Scout Rule (leave code cleaner than you found it)"
+    ],
+    "common_misconceptions": [
+      "Thinking short names are more efficient",
+      "Believing clean code means 'no comments needed ever'",
+      "Over-engineering simple solutions to follow 'patterns'"
+    ]
+  },
+  {
+    "concept": "Comments and documentation best practices",
+    "explanation": "The primary goal of comments should be to explain the 'why' rather than the 'what'. If the code is written clearly, the 'what' should be obvious. Comments are best used to explain complex business logic, non-obvious optimizations, or 'gotchas' that might confuse future developers. Documentation (like READMEs or JSDoc) serves a higher-level purpose, explaining how modules interact or how to set up the environment. In a startup, outdated comments are worse than no comments at all, as they mislead developers. Therefore, the best practice is to write expressive code first, and only use comments when the logic is inherently counter-intuitive or requires external context that the code cannot provide.",
+    "core_signals": [
+      "Explain the 'Why', not 'What'",
+      "Documentation as code (JSDoc/Swagger)",
+      "README importance",
+      "Stale comments",
+      "Todo/Fixme tags",
+      "Maintenance overhead"
+    ],
+    "advanced_signals": [
+      "Living documentation",
+      "Self-correcting code via tests",
+      "Documentation for API consumers vs internal devs"
+    ],
+    "common_misconceptions": [
+      "Commenting every single line of code",
+      "Using comments to apologize for bad code",
+      "Thinking documentation is only for large companies"
+    ]
+  },
+  {
+    "concept": "Basic refactoring techniques (extract method, rename)",
+    "explanation": "Refactoring is the process of improving the internal structure of code without changing its external behavior. It’s a vital skill for maintaining a healthy codebase as requirements evolve. 'Extract Method' involves taking a chunk of code from a large function and moving it into its own smaller, well-named function, which improves readability and allows for reuse. 'Rename' is the simplest yet most effective refactoring—changing a vague name to a precise one. Refactoring should be done in small, incremental steps, ideally backed by unit tests to ensure no regressions are introduced. In a startup, refactoring isn't a separate phase; it's a continuous habit that prevents 'technical debt' from accumulating and slowing down future feature development.",
+    "core_signals": [
+      "Technical debt",
+      "Incremental improvement",
+      "Code smells",
+      "Extracting logic",
+      "Red-Green-Refactor",
+      "Improving maintainability"
+    ],
+    "advanced_signals": [
+      "Refactoring to design patterns",
+      "Safe refactoring with IDE tools",
+      "Balancing refactoring vs shipping speed"
+    ],
+    "common_misconceptions": [
+      "Refactoring and rewriting are the same",
+      "Refactoring includes adding new features",
+      "Waiting for 'perfect' time to refactor"
+    ]
+  },
+  {
+    "concept": "Modular code and single responsibility principle",
+    "explanation": "Modular code is the practice of splitting a large program into smaller, independent pieces (modules) that each handle a specific part of the functionality. The Single Responsibility Principle (SRP) is the guiding rule here: a module or class should have only one reason to change. For example, a function that calculates a user's invoice shouldn't also be responsible for emailing it. By separating these concerns, the code becomes easier to test, debug, and reuse. In a startup, modularity allows multiple developers to work on different parts of the system simultaneously without stepping on each other's toes. It also makes the system more resilient; if the 'emailing' module breaks, the 'invoice calculation' logic remains intact and verifiable.",
+    "core_signals": [
+      "Separation of concerns",
+      "Loose coupling",
+      "High cohesion",
+      "Single reason to change",
+      "Reusability",
+      "Encapsulation"
+    ],
+    "advanced_signals": [
+      "Circular dependency issues",
+      "Interface segregation",
+      "Module boundaries in microservices"
+    ],
+    "common_misconceptions": [
+      "SRP means a class can only have one function",
+      "Thinking modularity is only for large projects",
+      "Over-splitting code into too many tiny files"
+    ]
+  },
+  {
+    "concept": "Time complexity intuition (Big-O basics)",
+    "explanation": "Time complexity is a way to describe how the execution time of an algorithm grows relative to the input size (n). In a startup environment, this isn't about counting microseconds, but about predicting scalability—will this feature crash the server when we go from 100 users to 100,000? Big-O notation provides a theoretical upper bound, focusing on the worst-case scenario. We drop constants and lower-order terms because, at scale, the highest power of n dominates the performance. For example, O(n) means if input doubles, time doubles; O(n²) means if input doubles, time quadruples. Understanding this allows a developer to choose an efficient approach early, avoiding technical debt and expensive infrastructure costs later on.",
+    "core_signals": [
+      "Growth rate vs input size",
+      "Worst-case scenario",
+      "O(n) linear vs O(1) constant",
+      "Dropping constants",
+      "Scaling behavior",
+      "Upper bound notation"
+    ],
+    "advanced_signals": [
+      "Average case vs worst case",
+      "Amortized time complexity",
+      "Trade-offs between readability and performance"
+    ],
+    "common_misconceptions": [
+      "Thinking Big-O measures exact execution time",
+      "Ignoring constants for small input sizes",
+      "Confusing time complexity with space complexity"
+    ]
+  },
+  {
+    "concept": "Space complexity intuition",
+    "explanation": "Space complexity measures the total amount of extra memory an algorithm requires relative to the input size. In modern cloud environments, memory is often a constrained resource; inefficient space usage can lead to 'Out of Memory' (OOM) errors and increased costs. We distinguish between 'Auxiliary Space' (extra space used by the algorithm) and 'Total Space' (input size + auxiliary space). For a junior dev, the goal is often to achieve 'in-place' manipulation where possible, keeping space at O(1). However, in startups, there is a frequent trade-off: we might use O(n) extra space (like a Hash Map) to drastically reduce time complexity from O(n²) to O(n), trading memory for speed to improve user experience.",
+    "core_signals": [
+      "Auxiliary space",
+      "Memory footprint",
+      "In-place algorithms",
+      "Input size relationship",
+      "O(1) vs O(n) space",
+      "Call stack memory"
+    ],
+    "advanced_signals": [
+      "Recursive stack depth",
+      "Heap vs Stack allocation",
+      "Trade-off: Memoization (space for time)"
+    ],
+    "common_misconceptions": [
+      "Forgetting the space used by the recursion stack",
+      "Thinking space complexity only counts variable declarations",
+      "Believing memory is 'cheap' and therefore irrelevant"
+    ]
+  },
+  {
+    "concept": "Arrays and common operations",
+    "explanation": "Arrays are the most fundamental data structure, representing a contiguous block of memory where elements are stored at specific indices. Their biggest strength is O(1) random access—if you know the index, you get the data instantly. However, they are rigid. Inserting or deleting elements at the beginning or middle is expensive (O(n)) because you must shift all subsequent elements. In a pragmatic startup context, arrays (or dynamic arrays/Lists) are the default choice for ordered data. Understanding when to use an array versus a list that allows fast insertions is key to writing performant code. For freshers, the intuition should be: 'Fast to read, slow to change size or structure.'",
+    "core_signals": [
+      "Contiguous memory",
+      "Zero-based indexing",
+      "O(1) access time",
+      "O(n) insertion/deletion",
+      "Linear search",
+      "Fixed vs Dynamic size"
+    ],
+    "advanced_signals": [
+      "Cache locality benefits",
+      "Dynamic array resizing (Amortized O(1))",
+      "Memory fragmentation"
+    ],
+    "common_misconceptions": [
+      "Thinking deleting an element by index is O(1)",
+      "Confusing arrays with linked lists",
+      "Ignoring the cost of resizing dynamic arrays"
+    ]
+  },
+  {
+    "concept": "Strings manipulation basics",
+    "explanation": "Strings are sequences of characters and are arguably the most handled data type in web development. The most critical concept for a junior dev is 'immutability.' In many languages (like Java, Python, JavaScript), strings cannot be changed in place; every 'modification' actually creates a brand-new string. This can lead to O(n²) performance issues in simple loops if not handled correctly (e.g., repeatedly concatenating in a loop). Pragmatically, strings are just arrays of bytes or Unicode characters. Knowing how to efficiently join, split, and search strings is essential for tasks ranging from parsing API responses to sanitizing user input in a startup's backend.",
+    "core_signals": [
+      "Immutability",
+      "Concatenation costs",
+      "ASCII vs Unicode/UTF-8",
+      "Substrings and slicing",
+      "String builders/buffers",
+      "Character encoding"
+    ],
+    "advanced_signals": [
+      "Memory overhead of new objects",
+      "Trie structures for string search",
+      "String interning/pooling"
+    ],
+    "common_misconceptions": [
+      "Thinking 'string + string' in a loop is efficient",
+      "Assuming all characters are 1 byte",
+      "Believing strings are always mutable"
+    ]
+  },
+  {
+    "concept": "Hash maps / dictionaries / objects",
+    "explanation": "Hash Maps are the 'Swiss Army Knife' of software engineering. They store data in key-value pairs, providing—on average—O(1) time complexity for search, insertion, and deletion. They work by passing a key through a hash function to determine its index in an underlying array. In a startup, Hash Maps are used everywhere: caching database results, counting frequencies, or deduplicating user IDs. The trade-off is that they are unordered and use more memory than arrays. A strong junior understands that while they are fast, 'collisions' (two keys hashing to the same spot) can degrade performance if the hash function is poor or the map is too full.",
+    "core_signals": [
+      "Key-Value pairs",
+      "O(1) average lookup",
+      "Hash function",
+      "Collision handling",
+      "Unordered data",
+      "Load factor"
+    ],
+    "advanced_signals": [
+      "Chaining vs Open Addressing",
+      "Worst-case O(n) performance",
+      "Cryptographic vs non-cryptographic hashes"
+    ],
+    "common_misconceptions": [
+      "Thinking lookups are *always* O(1)",
+      "Believing Hash Maps preserve insertion order",
+      "Using complex objects as keys without custom hash logic"
+    ]
+  },
+  {
+    "concept": "Stacks and real-world use cases",
+    "explanation": "A Stack is a 'Last-In, First-Out' (LIFO) data structure. Think of a stack of plates: you add to the top and take from the top. In software, stacks are fundamental for managing state and execution flow. The most common real-world example is the 'Undo' feature in an editor or the 'Back' button in a browser. Internally, the operating system uses a 'Call Stack' to manage function calls. For a junior dev, recognizing a stack-based problem—like matching parentheses in a string or reversing a sequence—is a sign of good algorithmic intuition. Operations (Push, Pop, Peek) are all O(1), making it highly efficient for its specific purpose.",
+    "core_signals": [
+      "LIFO (Last-In First-Out)",
+      "Push and Pop operations",
+      "Call stack / Recursion",
+      "Undo/Redo functionality",
+      "O(1) top access",
+      "Stack overflow"
+    ],
+    "advanced_signals": [
+      "Monotonic stacks for range queries",
+      "Evaluating postfix expressions",
+      "Iterative DFS implementation"
+    ],
+    "common_misconceptions": [
+      "Trying to access the bottom element directly",
+      "Confusing Stack with Queue",
+      "Thinking stacks are slower than arrays"
+    ]
+  },
+  {
+    "concept": "Queues and real-world use cases",
+    "explanation": "A Queue is a 'First-In, First-Out' (FIFO) data structure, much like a line at a coffee shop. You enter at the back (Enqueue) and leave from the front (Dequeue). In a startup's architecture, queues are everywhere: handling background tasks (like sending emails), managing print jobs, or load balancing requests to a server. When one part of a system produces data faster than another can consume it, a queue acts as a buffer. This 'asynchronous' processing is vital for keeping apps responsive. A junior should understand that basic queues provide O(1) insertion and removal, ensuring fairness and order in processing.",
+    "core_signals": [
+      "FIFO (First-In First-Out)",
+      "Enqueue and Dequeue",
+      "Asynchronous processing",
+      "Task scheduling",
+      "Buffering",
+      "Breadth-First Search (BFS)"
+    ],
+    "advanced_signals": [
+      "Circular buffers",
+      "Priority Queues / Heaps",
+      "Message brokers (RabbitMQ/Kafka) intuition"
+    ],
+    "common_misconceptions": [
+      "Using an array as a queue without considering O(n) shifts",
+      "Confusing LIFO and FIFO",
+      "Thinking queues are only used in UI"
+    ]
+  },
+  {
+    "concept": "Basic recursion patterns",
+    "explanation": "Recursion is a technique where a function calls itself to solve smaller instances of the same problem. Every recursive function needs two things: a 'Base Case' (to stop the loop) and a 'Recursive Step' (to move toward the base case). While often more elegant than loops, recursion carries the risk of a 'Stack Overflow' if the nesting is too deep. In a practical setting, recursion is the natural way to traverse hierarchical data like file systems, JSON objects, or HTML DOM trees. A junior should demonstrate the ability to 'trace' a recursive call and understand that each call adds a new frame to the memory stack.",
+    "core_signals": [
+      "Self-calling function",
+      "Base case",
+      "Recursive step",
+      "Stack frames",
+      "Divide and conquer",
+      "Termination condition"
+    ],
+    "advanced_signals": [
+      "Tail call optimization",
+      "Recursion vs Iteration trade-offs",
+      "Memoization in recursion"
+    ],
+    "common_misconceptions": [
+      "Forgetting the base case (infinite loop)",
+      "Not realizing recursion uses extra memory (stack)",
+      "Thinking recursion is always faster than loops"
+    ]
+  },
+  {
+    "concept": "Tree basics (binary tree intuition)",
+    "explanation": "A Tree is a hierarchical data structure consisting of nodes connected by edges, starting from a single 'Root.' A Binary Tree is a specific type where each node has at most two children (Left and Right). Trees are the foundation for organized data storage—databases use B-Trees, and file systems are tree-based. The real power comes from the Binary Search Tree (BST) property: for any node, everything smaller is on the left and everything larger is on the right. This allows for O(log n) searching, which is incredibly fast for large datasets. For a junior, the key is understanding how to navigate these structures using simple traversals (In-order, Pre-order, Post-order).",
+    "core_signals": [
+      "Root, Parent, and Child nodes",
+      "Leaf nodes",
+      "Left and Right pointers",
+      "Hierarchical vs Linear",
+      "BST property (Left < Root < Right)",
+      "O(log n) search intuition"
+    ],
+    "advanced_signals": [
+      "Balanced vs Unbalanced trees",
+      "Level-order traversal",
+      "Tree height and depth"
+    ],
+    "common_misconceptions": [
+      "Confusing Binary Trees with Binary Search Trees",
+      "Thinking all trees are balanced",
+      "Trying to use array-indexing on tree nodes"
+    ]
+  },
+  {
+    "concept": "REST principles and constraints",
+    "explanation": "REST (Representational State Transfer) is an architectural style for designing networked applications, primarily using HTTP. It’s the standard way for a frontend to talk to a backend in most startups. Key constraints include: being 'Stateless' (the server doesn't remember previous requests), using a 'Uniform Interface' (standard HTTP methods like GET, POST, PUT, DELETE), and being 'Client-Server' (separating UI concerns from data storage). Pragmatically, REST is about 'Resources'—each URL represents a noun (like /users or /orders). A junior dev should know that RESTful APIs make systems scalable and easier to maintain because any client that speaks HTTP can interact with them.",
+    "core_signals": [
+      "Statelessness",
+      "Resource-based (Nouns in URLs)",
+      "HTTP Verbs (GET, POST, etc.)",
+      "Client-Server separation",
+      "JSON as a data format",
+      "Idempotency"
+    ],
+    "advanced_signals": [
+      "HATEOAS",
+      "Cacheability",
+      "REST vs GraphQL trade-offs"
+    ],
+    "common_misconceptions": [
+      "Thinking REST is a programming language",
+      "Using verbs in URLs (e.g., /getUser)",
+      "Believing REST *requires* JSON (it's just the convention)"
+    ]
+  },
+  {
+    "concept": "HTTP methods (GET, POST, PUT, DELETE)",
+    "explanation": "HTTP methods define the desired action to be performed on a specific resource. GET is used to retrieve data and should be 'idempotent' and 'safe,' meaning it shouldn't change the server state. POST is used to create new resources; it is neither safe nor idempotent because multiple identical requests will likely create multiple records. PUT is used for updating existing resources or replacing them entirely; it is idempotent because multiple identical calls result in the same state. DELETE removes a resource. In a startup context, following these conventions is crucial for building predictable RESTful APIs that other developers or frontend teams can easily integrate with. Choosing the right method ensures that intermediate layers like caches or proxies handle the request correctly (e.g., caching GET but never POST).",
+    "core_signals": [
+      "Idempotency",
+      "Safe methods",
+      "Resource-oriented",
+      "CRUD mapping",
+      "Request body vs Query params",
+      "Statelessness",
+      "RESTful conventions"
+    ],
+    "advanced_signals": [
+      "Difference between PUT and PATCH",
+      "POST for non-CRUD actions",
+      "Cacheability of GET requests"
+    ],
+    "common_misconceptions": [
+      "Using GET for sensitive data because it is 'simpler'",
+      "Believing POST is 'secure' just because data is in the body",
+      "Thinking PUT and POST are interchangeable"
+    ]
+  },
+  {
+    "concept": "HTTP status codes categories",
+    "explanation": "Status codes are three-digit integers issued by a server in response to a client's request. They are categorized by the first digit to provide a high-level summary of the result. 1xx are Informational (rarely used by freshers). 2xx indicates Success (like 200 OK or 201 Created). 3xx indicates Redirection, telling the client to look elsewhere. 4xx are Client Errors (like 400 Bad Request or 404 Not Found), meaning the issue is with the request itself. 5xx are Server Errors (like 500 Internal Server Error), meaning the server failed to fulfill a valid request. For a junior dev, correctly using these helps the frontend handle errors gracefully and assists in debugging by narrowing down whether a bug is on the client or the server.",
+    "core_signals": [
+      "2xx Success",
+      "4xx Client Error",
+      "5xx Server Error",
+      "401 vs 403 (Auth vs Permission)",
+      "404 Not Found",
+      "500 Internal Server Error"
+    ],
+    "advanced_signals": [
+      "429 Too Many Requests (Rate limiting)",
+      "304 Not Modified (Caching)",
+      "Difference between 401 and 403"
+    ],
+    "common_misconceptions": [
+      "Returning 200 OK with an error message in the JSON body",
+      "Confusing 401 Unauthorized with 403 Forbidden",
+      "Blaming the client for all 5xx errors"
+    ]
+  },
+  {
+    "concept": "JSON structure and usage",
+    "explanation": "JSON (JavaScript Object Notation) is a lightweight, text-based data-interchange format. It is language-independent but uses conventions familiar to programmers of the C-family. It consists of two structures: objects (key/value pairs enclosed in curly braces) and arrays (ordered lists of values in square brackets). Values can be strings, numbers, booleans, null, objects, or arrays. In modern web development, JSON is the 'lingua franca' for APIs. It is preferred over XML due to its smaller footprint and native support in JavaScript. For a startup, using JSON effectively involves keeping keys consistent (usually camelCase or snake_case) and nesting data logically without creating overly deep, complex hierarchies that are hard to parse.",
+    "core_signals": [
+      "Key-value pairs",
+      "Data types (String, Number, Bool)",
+      "Serialization/Deserialization",
+      "Lightweight alternative to XML",
+      "Nested objects",
+      "Parsing"
+    ],
+    "advanced_signals": [
+      "JSON Schema validation",
+      "Efficiency/Payload size concerns",
+      "Serializing Dates/Timezones"
+    ],
+    "common_misconceptions": [
+      "Thinking JSON only works with JavaScript",
+      "Using single quotes for keys (invalid JSON)",
+      "Leaving trailing commas (breaks some parsers)"
+    ]
+  },
+  {
+    "concept": "Request-response lifecycle",
+    "explanation": "The lifecycle begins when a client (like a browser) initiates an HTTP request by resolving the server's IP via DNS and establishing a TCP/TLS connection. The request, containing a method, URL, headers, and body, travels over the internet to the server. The server processes this through its networking stack, routes it to the application logic, interacts with a database if needed, and constructs a response. This response (status code, headers, and body) travels back to the client. Understanding this end-to-end flow is vital for performance tuning and troubleshooting latency. In a startup environment, knowing where a request might be hanging—whether at the DNS level, the load balancer, or the DB query—is a key debugging skill.",
+    "core_signals": [
+      "DNS Lookup",
+      "TCP/TLS Handshake",
+      "HTTP Headers",
+      "Server-side processing",
+      "Payload/Body",
+      "Latency/RTT"
+    ],
+    "advanced_signals": [
+      "The role of Load Balancers",
+      "Connection Keep-Alive",
+      "TTFB (Time to First Byte)"
+    ],
+    "common_misconceptions": [
+      "Thinking the request goes 'instantly' to the code",
+      "Ignoring the DNS and handshake overhead",
+      "Assuming the server can only send one response per request"
+    ]
+  },
+  {
+    "concept": "Request handling flow on server",
+    "explanation": "Once a request hits the server, it typically passes through several layers. First, a web server (like Nginx) or a built-in framework listener receives the raw bytes and parses them into an internal Request object. It then goes through a 'Routing' layer to find the matching function (controller/handler). Before reaching the handler, it may pass through 'Middleware' for tasks like authentication or logging. The handler then executes business logic, interacts with the 'Data Access Layer' (DB), and returns a result. Finally, the framework wraps this result in an HTTP response, adds necessary headers, and sends it back through the middleware stack to the client. This structured flow allows for 'separation of concerns,' making the codebase maintainable as the startup grows.",
+    "core_signals": [
+      "Parsing the request",
+      "Router matching",
+      "Controller/Handler logic",
+      "Data access/Models",
+      "Response formatting",
+      "Pipeline/Stack"
+    ],
+    "advanced_signals": [
+      "Global error handling",
+      "Dependency Injection in handlers",
+      "Asynchronous vs Synchronous processing"
+    ],
+    "common_misconceptions": [
+      "Thinking the DB is part of the web server",
+      "Confusing the web server (Nginx) with the app server (Node/Python)",
+      "Mixing business logic directly inside the router"
+    ]
+  },
+  {
+    "concept": "Middleware concept and examples",
+    "explanation": "Middleware is a functional block that sits between the incoming request and the final route handler. Think of it as an assembly line: each middleware can inspect, modify, or reject a request before passing it to the 'next' function in the chain. It can also modify the response on its way out. Common uses include Authentication (checking JWTs), Logging (tracking request times), CORS handling, and Body Parsing. Middleware is powerful for startups because it promotes 'Don't Repeat Yourself' (DRY) principles—instead of checking if a user is logged in inside 50 different functions, you write one piece of middleware and apply it globally or to specific groups of routes.",
+    "core_signals": [
+      "The 'next()' function",
+      "Request/Response interception",
+      "Chaining",
+      "Logging and Auth",
+      "Early exit (Short-circuiting)",
+      "Cross-cutting concerns"
+    ],
+    "advanced_signals": [
+      "Order of execution matters",
+      "Error-handling middleware",
+      "Performance overhead of middleware"
+    ],
+    "common_misconceptions": [
+      "Thinking middleware only runs before the request",
+      "Forgetting to call 'next()', causing the request to hang",
+      "Putting complex business logic in middleware"
+    ]
+  },
+  {
+    "concept": "Basic routing in web frameworks",
+    "explanation": "Routing is the mechanism that maps an incoming HTTP request (defined by its Method and URL Path) to a specific piece of code, usually called a Controller or Handler. For example, a GET request to `/users/123` might be routed to a `getUser` function. Routing involves matching static paths (`/about`), dynamic parameters (`/users/:id`), and sometimes query strings. Modern frameworks also allow 'Route Grouping' to apply middleware to specific prefixes (e.g., all `/api/v1` routes). Effective routing creates a clean, logical API structure that serves as documentation for how the system is organized, which is essential for collaborative development in fast-paced teams.",
+    "core_signals": [
+      "Path matching",
+      "URL parameters/Path variables",
+      "Method-based routing",
+      "Route handlers",
+      "Dynamic segments",
+      "Prefixing/Versioning"
+    ],
+    "advanced_signals": [
+      "Regex-based routing",
+      "Priority/Order of route definitions",
+      "Named routes"
+    ],
+    "common_misconceptions": [
+      "Confusing path parameters with query parameters",
+      "Thinking routes are just file paths (like old PHP/HTML)",
+      "Overlapping dynamic routes (e.g., /users/:id vs /users/me)"
+    ]
+  },
+  {
+    "concept": "Environment variables and config management",
+    "explanation": "Environment variables are key-value pairs stored outside the application code, used to configure the app based on its deployment environment (Development, Staging, Production). This includes database credentials, API keys, and port numbers. In a startup, 'never hardcode secrets' is a golden rule. Using tools like `.env` files (locally) and secret managers (in cloud) allows the same code to run anywhere without modification. It also prevents sensitive data from being leaked in version control (Git). Good config management involves providing sensible defaults while allowing overrides, ensuring that the 'Production' environment remains secure and isolated from 'Local' testing.",
+    "core_signals": [
+      "Separation of config and code",
+      ".env files",
+      "Process environment (process.env)",
+      "Secrets management",
+      "Twelve-Factor App methodology",
+      "Non-sensitive vs Sensitive config"
+    ],
+    "advanced_signals": [
+      "Config validation on startup",
+      "Environment-specific overrides",
+      "Security risks of .env in production"
+    ],
+    "common_misconceptions": [
+      "Committing .env files to GitHub",
+      "Hardcoding 'localhost' in the source code",
+      "Thinking environment variables are only for passwords"
+    ]
+  },
+  {
+    "concept": "JWT concept and structure",
+    "explanation": "JWT (JSON Web Token) is an open standard for securely transmitting information between parties as a JSON object. It is most commonly used for authentication. A JWT consists of three parts separated by dots: Header (algorithm and token type), Payload (claims like user_id and expiration), and Signature (used to verify the sender and ensure the message wasn't changed). Unlike sessions, JWTs are 'stateless'—the server doesn't need to store a record of the token in a database to verify it. It simply checks the signature using a secret key. This makes JWTs highly scalable for startups, especially when using microservices or multiple servers, as any service can verify the token independently.",
+    "core_signals": [
+      "Header, Payload, Signature",
+      "Stateless authentication",
+      "Base64 encoding",
+      "Claims",
+      "Secret key verification",
+      "Self-contained token"
+    ],
+    "advanced_signals": [
+      "Signing vs Encryption",
+      "Token expiration (exp claim)",
+      "Storing JWT in Cookies vs LocalStorage"
+    ],
+    "common_misconceptions": [
+      "Thinking JWT is encrypted (it's usually just encoded)",
+      "Putting sensitive data like passwords in the payload",
+      "Thinking JWTs can be easily revoked without extra logic"
+    ]
+  },
+  {
+    "concept": "Session-based vs token-based authentication",
+    "explanation": "Session-based auth is 'stateful'; the server creates a session record in a database or memory and sends a unique Session ID to the client via a cookie. On every request, the server looks up that ID to identify the user. Token-based auth (like JWT) is 'stateless'; the server sends a signed token to the client, which the client sends back in the 'Authorization' header. The server verifies the user by validating the token's signature, no DB lookup required. Sessions are easier to revoke (just delete the record), but harder to scale across multiple servers. Tokens scale perfectly and work well for mobile apps, but revoking them before they expire requires more complex patterns like 'Blacklisting' or 'Refresh Tokens.'",
+    "core_signals": [
+      "Stateful vs Stateless",
+      "Database lookup (Sessions)",
+      "Scalability",
+      "Cookies vs Headers",
+      "Revocation trade-offs",
+      "Storage (Server-side vs Client-side)"
+    ],
+    "advanced_signals": [
+      "Vertical vs Horizontal scaling",
+      "CSRF protection needs for sessions",
+      "Refresh token pattern"
+    ],
+    "common_misconceptions": [
+      "Thinking tokens are 'always' better than sessions",
+      "Believing sessions don't work for mobile apps",
+      "Ignoring the storage overhead of sessions at scale"
+    ]
+  },
+  {
+    "concept": "Basic authorization vs authentication",
+    "explanation": "Authentication (AuthN) is the process of verifying who a user is—it is the digital equivalent of showing an ID card. In a startup context, this usually involves login credentials, OAuth, or biometric data. Authorization (AuthZ), on the other hand, determines what an identified user is allowed to do. It happens after successful authentication. For example, while any employee can authenticate to a company portal, only an admin might be authorized to delete user accounts. A common mistake is treating them as a single step. For a developer, AuthN is often handled by a service (like Firebase or Auth0), while AuthZ is handled via roles (RBAC) or permissions (ABAC) within the application logic. Understanding the 'Who' vs. 'What' distinction is vital for designing secure, multi-tenant systems where users must be restricted to their own data.",
+    "core_signals": [
+      "Who vs. What",
+      "Identification vs. Permissions",
+      "Authentication happens first",
+      "401 Unauthorized vs. 403 Forbidden",
+      "Identity verification",
+      "Access control levels",
+      "Credentials (passwords, tokens)"
+    ],
+    "advanced_signals": [
+      "RBAC (Role-Based Access Control) mention",
+      "Stateless auth via JWTs",
+      "Principle of Least Privilege",
+      "Separation of concerns in middleware"
+    ],
+    "common_misconceptions": [
+      "Believing a successful login means the user has full access",
+      "Confusing HTTP 401 and 403 status codes",
+      "Thinking AuthN and AuthZ are the same because they are both in the 'login flow'"
+    ]
+  },
+  {
+    "concept": "Input validation importance",
+    "explanation": "Input validation is the first line of defense in any application. It is the process of ensuring that data provided by a user or an external system conforms to expected formats, types, and lengths before it is processed. From a pragmatic startup perspective, 'never trust user input' is the golden rule. Malicious or malformed input can lead to system crashes, buffer overflows, and various injection attacks. Validation should happen on both the client side (for user experience) and the server side (for security). While client-side checks provide immediate feedback, they are easily bypassed. Server-side validation is mandatory to maintain data integrity and prevent attackers from sending 'garbage' data that could compromise the database or application logic. It's about ensuring the system remains predictable and secure under all input conditions.",
+    "core_signals": [
+      "Never trust user input",
+      "Client-side vs. Server-side validation",
+      "Sanitization vs. Validation",
+      "Data integrity",
+      "Type checking",
+      "Whitelisting vs. Blacklisting",
+      "Schema enforcement"
+    ],
+    "advanced_signals": [
+      "Fail-fast principle",
+      "Regular Expressions (RegEx) limitations",
+      "Impact on downstream systems (APIs/DBs)",
+      "Defense in depth strategy"
+    ],
+    "common_misconceptions": [
+      "Thinking client-side validation is enough for security",
+      "Confusing validation with error handling",
+      "Relying solely on blacklisting specific bad characters"
+    ]
+  },
+  {
+    "concept": "SQL injection awareness and prevention",
+    "explanation": "SQL Injection (SQLi) occurs when an attacker inserts malicious SQL fragments into a query, tricking the database into executing unintended commands. This often happens when user input is concatenated directly into a string to build a query. For a junior dev, the most critical lesson is that string interpolation in queries is a 'firing offense' for security. In a startup, a single SQLi vulnerability could lead to a total data breach, exposing passwords or customer PII. The primary defense is using Prepared Statements (Parameterized Queries), which treat user input as data only, never as executable code. Modern Object-Relational Mappers (ORMs) like Sequelize or TypeORM often handle this automatically, but understanding the underlying mechanism—binding parameters—is essential for when raw queries are necessary.",
+    "core_signals": [
+      "Prepared Statements",
+      "Parameterized Queries",
+      "String concatenation risks",
+      "ORMs (Object-Relational Mapping)",
+      "Data vs. Command separation",
+      "Escaping input",
+      "Dropping tables / bypassing login"
+    ],
+    "advanced_signals": [
+      "Blind SQL injection",
+      "Second-order SQL injection",
+      "Database user permissions (Least Privilege)",
+      "Stored procedures vs. parameterized queries"
+    ],
+    "common_misconceptions": [
+      "Thinking that front-end character filtering prevents SQLi",
+      "Believing ORMs make you 100% immune without proper usage",
+      "Assuming only 'DELETE' or 'DROP' queries are dangerous"
+    ]
+  },
+  {
+    "concept": "XSS (Cross-Site Scripting) basics",
+    "explanation": "Cross-Site Scripting (XSS) is a vulnerability where an attacker injects malicious scripts (usually JavaScript) into a web page viewed by other users. Unlike SQLi, which targets the database, XSS targets the end user's browser. There are three main types: Stored XSS (malicious script is saved in the DB, like a comment), Reflected XSS (script is part of a URL or request and 'reflected' back), and DOM-based XSS. For a startup, XSS is dangerous because it allows attackers to steal session cookies, hijack user sessions, or deface the site. Prevention involves 'encoding' output—converting characters like '<' and '>' into HTML entities so the browser displays them as text instead of executing them as code. Using modern frameworks like React helps, as they auto-escape content by default, but developers must remain cautious when using 'dangerouslySetInnerHTML'.",
+    "core_signals": [
+      "Malicious script injection",
+      "Browser execution context",
+      "Stealing cookies/session tokens",
+      "Output encoding",
+      "Stored vs. Reflected XSS",
+      "Content Security Policy (CSP)",
+      "Sanitization"
+    ],
+    "advanced_signals": [
+      "HttpOnly cookies",
+      "DOM-based XSS",
+      "Same-origin policy (SOP)",
+      "Third-party library vulnerabilities"
+    ],
+    "common_misconceptions": [
+      "Thinking XSS only happens in the URL",
+      "Assuming 'alert(1)' is the only goal of an attacker",
+      "Believing HTTPS prevents XSS"
+    ]
+  },
+  {
+    "concept": "Password hashing and salting",
+    "explanation": "Storing passwords in plain text is a catastrophic security failure. Instead, developers must use cryptographic hashing. A hash function is one-way: you can turn a password into a hash, but you cannot realistically turn the hash back into the password. However, because many users use common passwords, attackers use 'Rainbow Tables' (precomputed hashes) to crack them. To prevent this, we use a 'Salt'—a unique, random string added to the password before hashing. This ensures that even if two users have the same password, their stored hashes will be different. For a startup, the trade-off is compute time; modern algorithms like bcrypt, Argon2, or scrypt are 'slow' by design to make brute-force attacks expensive. Simply using SHA-256 is no longer considered sufficient for passwords because it is too fast to calculate.",
+    "core_signals": [
+      "One-way function",
+      "Bcrypt / Argon2",
+      "Salt (randomness per user)",
+      "Rainbow tables",
+      "Brute-force protection",
+      "Hashing vs. Encryption",
+      "Work factor / Cost factor"
+    ],
+    "advanced_signals": [
+      "Pepper (application-level secret)",
+      "Collision resistance",
+      "Iterative hashing",
+      "Credential stuffing protection"
+    ],
+    "common_misconceptions": [
+      "Confusing hashing with encryption (which is reversible)",
+      "Thinking MD5 or SHA-1 is still secure for passwords",
+      "Using a single salt for all users"
+    ]
+  },
+  {
+    "concept": "HTTPS and TLS basics",
+    "explanation": "HTTPS (Hypertext Transfer Protocol Secure) is the secure version of HTTP, using TLS (Transport Layer Security) to encrypt communication between a client and a server. It provides three main benefits: Encryption (hiding data from eavesdroppers), Integrity (preventing data from being tampered with during transit), and Authentication (proving the server is who it claims to be via Certificates). In a startup environment, HTTPS is non-negotiable for trust and SEO. The process begins with a 'TLS Handshake' where the client and server agree on encryption keys using Public Key Infrastructure (PKI). While it adds a tiny bit of latency due to the handshake, modern hardware and protocols (like HTTP/2 or QUIC) make this overhead negligible. A junior should know that HTTPS protects data 'in flight' but does not protect the data once it is stored on the server.",
+    "core_signals": [
+      "Encryption in transit",
+      "TLS/SSL Handshake",
+      "Public Key Infrastructure (PKI)",
+      "Certificates / Certificate Authorities",
+      "Data integrity",
+      "Man-in-the-Middle (MitM) protection",
+      "Port 443"
+    ],
+    "advanced_signals": [
+      "Symmetric vs. Asymmetric encryption",
+      "Forward Secrecy",
+      "HSTS (HTTP Strict Transport Security)",
+      "SNI (Server Name Indication)"
+    ],
+    "common_misconceptions": [
+      "Thinking HTTPS protects your database from being hacked",
+      "Believing SSL and TLS are two different current standards (TLS replaced SSL)",
+      "Assuming a site is 'safe' just because it has a padlock icon"
+    ]
+  },
+  {
+    "concept": "Tables, rows, columns",
+    "explanation": "At the heart of relational databases (RDBMS) is the table structure. A table represents an 'Entity' (like Users or Orders). Columns (also called attributes or fields) define the structure and data type of the information, such as 'username' (string) or 'created_at' (timestamp). Rows (also called records or tuples) represent a single, unique instance of that entity. For a junior dev, the key is understanding 'Schema'—the blueprint that dictates exactly what data can go into the columns. In a startup, choosing the right column types is a trade-off between storage efficiency and performance. While NoSQL offers flexibility, the rigid table/row/column structure of SQL provides high data consistency and makes complex reporting much easier through structured relationships.",
+    "core_signals": [
+      "Entity and Attributes",
+      "Records vs. Fields",
+      "Schema definition",
+      "Data types (int, varchar, etc.)",
+      "Structured data",
+      "Unique records",
+      "RDBMS basics"
+    ],
+    "advanced_signals": [
+      "Nullability and Constraints",
+      "Normalization basics",
+      "Horizontal vs. Vertical storage",
+      "Data redundancy"
+    ],
+    "common_misconceptions": [
+      "Thinking a table can have an unlimited number of columns without performance cost",
+      "Confusing a column with a specific data value",
+      "Believing rows are always stored in a specific order"
+    ]
+  },
+  {
+    "concept": "Primary key and foreign key",
+    "explanation": "Primary Keys (PK) and Foreign Keys (FK) are the glue that holds relational databases together. A Primary Key is a column (or group of columns) that uniquely identifies every row in a table—it cannot be null and must be unique. A Foreign Key is a column in one table that points to the Primary Key of another table, creating a relationship between them. For example, an 'Orders' table might have a 'user_id' Foreign Key that references the 'id' Primary Key in the 'Users' table. This ensures 'Referential Integrity,' meaning the database won't let you create an order for a user that doesn't exist. In a startup, using proper keys is essential for data consistency and performance, as the database uses these keys to optimize how it links data during queries.",
+    "core_signals": [
+      "Unique identifier",
+      "Referential integrity",
+      "Relationships (One-to-Many)",
+      "Linking tables",
+      "Non-nullable (for PK)",
+      "Constraints",
+      "ID columns"
+    ],
+    "advanced_signals": [
+      "Composite Keys",
+      "Surrogate vs. Natural keys",
+      "Cascading deletes/updates",
+      "Index creation on Foreign Keys"
+    ],
+    "common_misconceptions": [
+      "Thinking a table can have multiple Primary Keys (it can only have one, though it can be composite)",
+      "Assuming a Foreign Key must have the same name as the Primary Key it references",
+      "Believing Primary Keys must always be incrementing integers (UUIDs are common)"
+    ]
+  },
+  {
+    "concept": "Basic JOIN types intuition",
+    "explanation": "JOINs are used to combine rows from two or more tables based on a related column. The intuition is about how we handle 'matches.' An INNER JOIN is the most common; it only returns rows where there is a match in both tables (the intersection). A LEFT JOIN (or Left Outer Join) returns all rows from the left table and the matched rows from the right; if there's no match, the right side is NULL. This is useful for finding 'all users and their orders, even if they haven't ordered yet.' RIGHT JOIN is the inverse. FULL JOIN returns everything from both, filling in NULLs where matches are missing. For a junior, the trade-off is query complexity vs. data completeness. Startups often use JOINs to keep data 'Normalized' (separated into logical tables) while still being able to reconstruct a full view of the data for the UI.",
+    "core_signals": [
+      "Inner vs. Outer",
+      "Intersection of data",
+      "Handling NULLs",
+      "Combining tables",
+      "Left vs. Right context",
+      "Matching criteria (ON clause)",
+      "Venn diagram analogy"
+    ],
+    "advanced_signals": [
+      "Cross Join (Cartesian product)",
+      "Self Joins",
+      "Performance impact of large joins",
+      "Filtering in JOIN vs. WHERE clause"
+    ],
+    "common_misconceptions": [
+      "Thinking JOINs physically merge tables permanently",
+      "Confusing LEFT JOIN with INNER JOIN when there are no missing values",
+      "Believing you can only JOIN two tables at a time"
+    ]
+  },
+  {
+    "concept": "Database indexing purpose and trade-offs",
+    "explanation": "An index is a powerful data structure (often a B-Tree) that improves the speed of data retrieval operations on a database table. Think of it like an index at the back of a book: instead of scanning every page (a Full Table Scan), you look up the keyword and jump straight to the page number. The primary purpose is performance—making SELECT queries significantly faster. However, there is a 'Write Tax.' Every time you insert, update, or delete a row, the database must also update the index. This consumes extra storage and slows down write operations. In a fast-growing startup, the challenge is finding the balance: index columns that are frequently used in WHERE clauses or JOINs, but avoid over-indexing, which can bloat the database and degrade write performance.",
+    "core_signals": [
+      "Search performance / Speed",
+      "B-Tree / Hash index",
+      "Retrieval vs. Storage trade-off",
+      "Write overhead (Write Tax)",
+      "Full Table Scan",
+      "Filtering / WHERE clause optimization",
+      "Scan vs. Seek"
+    ],
+    "advanced_signals": [
+      "Clustered vs. Non-clustered index",
+      "Covering index",
+      "Multi-column (Composite) indexes",
+      "High cardinality vs. Low cardinality"
+    ],
+    "common_misconceptions": [
+      "Thinking you should index every single column",
+      "Believing indexes speed up all operations (they usually slow down writes)",
+      "Assuming the database automatically knows the best index to use for every query"
+    ]
+  },
+  {
+    "concept": "Simple schema design principles",
+    "explanation": "Effective schema design at the entry level focuses on translating real-world entities into organized database tables while ensuring data integrity. The core principle is 'One Fact in One Place,' which prevents redundancy. A good design begins by identifying entities (like Users or Orders) and their relationships (One-to-Many, Many-to-Many). Every table must have a Primary Key to uniquely identify records, and Foreign Keys are used to maintain referential integrity between tables. In a startup environment, the goal is a balance: keeping the schema clean enough to prevent data corruption while remaining flexible enough for rapid feature iterations. This involves choosing appropriate data types to save space and ensure validation at the database level, such as using Integers for counts rather than Strings.",
+    "core_signals": [
+      "Entity-Relationship mapping",
+      "Primary and Foreign Keys",
+      "Referential integrity",
+      "Data types selection",
+      "Avoiding data redundancy",
+      "One-to-Many vs Many-to-Many",
+      "Defining constraints (NOT NULL, UNIQUE)"
+    ],
+    "advanced_signals": [
+      "Naming conventions for scalability",
+      "Enforcing business logic via constraints",
+      "Schema migrations and versioning"
+    ],
+    "common_misconceptions": [
+      "Storing multiple values in a single string/column",
+      "Ignoring Foreign Key constraints for 'speed'",
+      "Creating one giant table for all application data"
+    ]
+  },
+  {
+    "concept": "Normalization basics (1NF-3NF intuition)",
+    "explanation": "Normalization is the systematic process of organizing data to minimize redundancy and avoid 'update anomalies.' Think of it as a series of cleanup steps. 1NF (First Normal Form) ensures each column contains atomic (indivisible) values and there are no repeating groups. 2NF builds on this by ensuring all non-key columns depend entirely on the whole Primary Key, which is mostly relevant for tables with composite keys. 3NF is the most common target for startups: it requires that no non-key column depends on another non-key column (no transitive dependencies). In practice, this means if you have an 'Orders' table, you store the 'CustomerID' but keep the 'CustomerAddress' in a separate 'Users' table; otherwise, changing an address would require updating every single order record.",
+    "core_signals": [
+      "Atomic values (1NF)",
+      "Partial dependency (2NF)",
+      "Transitive dependency (3NF)",
+      "Reducing data redundancy",
+      "Update/Insert/Delete anomalies",
+      "Relational decomposition"
+    ],
+    "advanced_signals": [
+      "Identifying Boyce-Codd Normal Form (BCNF)",
+      "Cost of excessive joins in 3NF",
+      "When to stop at 3NF for pragmatism"
+    ],
+    "common_misconceptions": [
+      "Thinking 3NF means the database is 'perfect'",
+      "Confusing 2NF with 3NF definitions",
+      "Believing normalization is only about saving disk space"
+    ]
+  },
+  {
+    "concept": "Schema design trade-offs (denormalization)",
+    "explanation": "While normalization reduces redundancy, it often requires 'Joins' to retrieve data spread across tables, which can slow down read-heavy applications. Denormalization is the intentional strategy of adding redundant data or grouping data to optimize read performance. In a startup, if you find that your dashboard query is joining five tables every second, you might 'pre-calculate' a total or store a 'Username' directly in the 'Comments' table. The trade-off is clear: you gain significantly faster Read speeds at the expense of slower, more complex Writes and the risk of 'stale' data. You must now ensure that if a user changes their name, the app updates it in every denormalized location, increasing the burden on the application logic.",
+    "core_signals": [
+      "Read vs Write performance",
+      "Reducing Join overhead",
+      "Redundant data storage",
+      "Data consistency risks",
+      "Materialized views",
+      "Pre-computing aggregates"
+    ],
+    "advanced_signals": [
+      "Application-level cache invalidation",
+      "Eventual consistency",
+      "Strategic vs accidental redundancy"
+    ],
+    "common_misconceptions": [
+      "Denormalization means 'no schema'",
+      "Thinking denormalization is always better for speed",
+      "Forgetting to update redundant data copies"
+    ]
+  },
+  {
+    "concept": "Why indexing improves query speed",
+    "explanation": "Indexing improves query speed by providing a data structure (typically a B-Tree) that allows the database engine to locate specific rows without scanning the entire table. This reduces the time complexity of searches from O(n) to O(log n), significantly enhancing performance for large datasets. However, it comes with a 'write tax,' as the index must be updated whenever data is inserted, updated, or deleted.",
+    "core_signals": [
+      "B-Tree data structure",
+      "Full Table Scan vs Index Seek",
+      "O(log N) search complexity",
+      "Write overhead / Disk space",
+      "Primary vs Secondary indexes",
+      "Clustered vs Non-clustered"
+    ],
+    "advanced_signals": [
+      "Composite indexes and column order",
+      "Index selectivity and cardinality",
+      "Covering indexes"
+    ],
+    "common_misconceptions": [
+      "Indexing every single column",
+      "Thinking indexes speed up Insert/Update operations",
+      "Assuming indexes don't take up any disk space"
+    ]
+  },
+  {
+    "concept": "Basic query optimization tips",
+    "explanation": "Query optimization is the practice of writing SQL that minimizes the workload on the database engine. The most common tip for freshers is 'Selectivity': avoid `SELECT *` and only fetch the columns you actually need to reduce network I/O and memory usage. Another major win is avoiding N+1 queries in application code (fetching a list, then looping to fetch details for each item). Instead, use a single JOIN or an IN clause. You should also avoid using functions on indexed columns in a WHERE clause (e.g., `WHERE YEAR(date) = 2023`), as this prevents the database from using the index (SARGability). Using `EXPLAIN` to see the query execution plan is the professional way to diagnose why a query is slow.",
+    "core_signals": [
+      "Avoid SELECT *",
+      "Solving N+1 query problem",
+      "Using EXPLAIN or EXPLAIN ANALYZE",
+      "SARGable queries (Searchable Arguments)",
+      "Filtering data early (WHERE before JOIN)",
+      "Limit and Pagination"
+    ],
+    "advanced_signals": [
+      "Understanding Nested Loop vs Hash Joins",
+      "Avoiding wildcards at the start of LIKE",
+      "Impact of subqueries vs joins"
+    ],
+    "common_misconceptions": [
+      "More code in SQL is always slower",
+      "Thinking 'LIMIT' fixes a slow Full Table Scan",
+      "Assuming the DB engine always picks the best path"
+    ]
+  },
+  {
+    "concept": "When and why to use caching",
+    "explanation": "Caching involves storing frequently accessed data in a fast, in-memory storage layer (like Redis or Memcached) to avoid expensive database hits or complex computations. In a startup, caching is the first line of defense for scaling. You use it when data is 'Read-Heavy' and doesn't change every second (e.g., product details, user sessions, or top 10 leaderboard). The 'Why' is simple: memory (RAM) is orders of magnitude faster than disk-based databases. However, caching introduces the hardest problem in CS: Cache Invalidation. If the data in the DB changes but the cache isn't updated, users see 'stale' data. Strategies like TTL (Time To Live) or Write-Through caching are used to manage this trade-off.",
+    "core_signals": [
+      "In-memory storage (Redis/Memcached)",
+      "Reducing DB load",
+      "Latency reduction",
+      "Read-heavy vs Write-heavy",
+      "TTL (Time To Live)",
+      "Cache Hit vs Cache Miss"
+    ],
+    "advanced_signals": [
+      "Cache Invalidation strategies",
+      "Cache Aside pattern",
+      "Thundering Herd problem"
+    ],
+    "common_misconceptions": [
+      "Using the cache as the primary source of truth",
+      "Caching data that changes every millisecond",
+      "Thinking caching solves bad query design"
+    ]
+  },
+  {
+    "concept": "Designing a simple CRUD application",
+    "explanation": "CRUD stands for Create, Read, Update, and Delete—the four basic operations of any persistent application. Designing one requires a layered approach: the API layer (REST/GraphQL), the Business Logic layer, and the Data Access layer. For a simple app like a 'Todo List,' you define endpoints like `POST /tasks` (Create) and `GET /tasks/:id` (Read). A key junior-level focus is validation: ensuring the 'Create' payload has the right fields before hitting the DB. In a startup context, it's also important to consider 'Soft Deletes' (marking a row as deleted rather than removing it) to preserve history and make 'Undo' features possible. Security (who can Update this task?) must be integrated into the logic, not added as an afterthought.",
+    "core_signals": [
+      "RESTful API design",
+      "HTTP Methods (POST, GET, PUT, DELETE)",
+      "Status Codes (200, 201, 404, 500)",
+      "Input validation",
+      "Soft vs Hard deletes",
+      "Statelessness"
+    ],
+    "advanced_signals": [
+      "Idempotency in Updates",
+      "Pagination for Read operations",
+      "Database transactions for atomic CRUD"
+    ],
+    "common_misconceptions": [
+      "Using GET for deleting data",
+      "Missing error handling for 'Not Found' cases",
+      "Directly exposing DB IDs without security checks"
+    ]
+  },
+  {
+    "concept": "Designing user authentication flow",
+    "explanation": "Authentication is the process of verifying who a user is. A standard flow involves: 1) User submits credentials via HTTPS, 2) Server verifies the password (which must be Hashed, never stored in plain text!), and 3) Server issues a 'Token' (like a JWT) or a Session Cookie. For startups, JWTs (JSON Web Tokens) are popular because they are stateless, meaning the server doesn't need to check a database for every request. However, you must handle 'Token Expiration' and 'Refresh Tokens' to maintain security. It's also vital to mention 'Hashing + Salting' (using algorithms like BCrypt) to protect against rainbow table attacks if the database is ever compromised.",
+    "core_signals": [
+      "Password Hashing and Salting",
+      "JWT (JSON Web Tokens)",
+      "Session-based vs Token-based",
+      "HTTPS/TLS requirement",
+      "Refresh tokens",
+      "Bcrypt/Argon2",
+      "Bearer tokens"
+    ],
+    "advanced_signals": [
+      "Multi-Factor Authentication (MFA)",
+      "OAuth2/OpenID Connect",
+      "Secure/HttpOnly cookie flags"
+    ],
+    "common_misconceptions": [
+      "Storing passwords in plain text or reversible encryption",
+      "Confusing Authentication with Authorization",
+      "Storing JWTs in local storage without XSS protection"
+    ]
+  },
+  {
+    "concept": "Designing a file upload feature",
+    "explanation": "Designing file uploads involves more than just a 'Save' button; it requires handling storage, security, and performance. You should never store files directly in your database or on the application server's local disk (which makes scaling impossible). Instead, use Object Storage like AWS S3. The flow typically involves the client uploading to the server, which then streams the file to S3, or the more optimized 'Pre-signed URL' approach where the client uploads directly to S3. Key considerations include validating file types (MIME types), limiting file size to prevent DoS attacks, and renaming files to avoid naming collisions or path injection attacks. For performance, large files should be handled via multipart uploads.",
+    "core_signals": [
+      "Object Storage (S3/GCS)",
+      "Pre-signed URLs",
+      "MIME type validation",
+      "File size limits",
+      "Multipart uploads",
+      "CDN for file delivery",
+      "Unique file naming (UUIDs)"
+    ],
+    "advanced_signals": [
+      "Asynchronous processing (e.g., resizing images)",
+      "Virus scanning on upload",
+      "Signed cookies for private files"
+    ],
+    "common_misconceptions": [
+      "Storing images as BLOBs in the database",
+      "Trusting the file extension provided by the user",
+      "Storing files on the web server's local folder"
+    ]
+  },
+  {
+    "concept": "Vertical vs horizontal scaling",
+    "explanation": "Scaling is how you handle more users. Vertical Scaling ('Scaling Up') means adding more power (CPU, RAM) to your existing server. It’s simple but has a 'ceiling' (hardware limits) and creates a single point of failure. Horizontal Scaling ('Scaling Out') means adding more servers to your pool. This is the industry standard for reliability. To scale horizontally, you need a Load Balancer to distribute traffic and your application must be 'Stateless' (so any server can handle any request). While horizontal scaling is more complex to set up, it allows for 'Elasticity'—adding servers during peak hours and removing them to save money when traffic is low, which is crucial for startup cost management.",
+    "core_signals": [
+      "Scaling Up vs Scaling Out",
+      "Load Balancers",
+      "Stateless architecture",
+      "Single Point of Failure",
+      "Elasticity / Auto-scaling",
+      "Hardware limits",
+      "Distributed systems"
+    ],
+    "advanced_signals": [
+      "Database Sharding (horizontal DB scaling)",
+      "Read Replicas",
+      "Session stickiness challenges"
+    ],
+    "common_misconceptions": [
+      "Thinking vertical scaling is infinite",
+      "Assuming horizontal scaling is 'cheaper' initially",
+      "Forgetting that the DB also needs to scale"
+    ]
+  },
+  {
+    "concept": "Load balancer basics and purpose",
+    "explanation": "A load balancer (LB) acts as a digital traffic cop sitting in front of your servers, routing incoming client requests across all servers capable of fulfilling those requests. For a startup, its primary purpose is to ensure high availability and reliability by preventing any single server from becoming a bottleneck or a single point of failure. If one server goes down, the LB redirects traffic to the remaining healthy servers. Beyond simple distribution, it often handles 'health checks' to monitor server status and can manage SSL termination to offload computation. It allows a system to scale horizontally by simply adding more commodity hardware or instances to the pool. While it adds a layer of complexity and a potential single point of failure if not redundant itself, the trade-off is essential for handling growth and maintaining a seamless user experience during traffic spikes.",
+    "core_signals": [
+      "Single point of entry",
+      "Horizontal scaling",
+      "High availability",
+      "Traffic distribution",
+      "Health checks",
+      "Redundancy",
+      "Round-robin or Least connections"
+    ],
+    "advanced_signals": [
+      "Layer 4 vs Layer 7 balancing",
+      "Session persistence (Sticky sessions)",
+      "SSL termination / Offloading",
+      "Handling the LB as a SPOF"
+    ],
+    "common_misconceptions": [
+      "Believing an LB speeds up a single request's execution",
+      "Confusing load balancing with database sharding",
+      "Thinking an LB is only for web servers (can be for DBs/services too)"
+    ]
+  },
+  {
+    "concept": "Caching concept and benefits",
+    "explanation": "Caching is the process of storing copies of data in a high-speed storage layer (typically RAM) so that future requests for that data can be served much faster than fetching it from the original, slower source like a disk-based database or an external API. In a pragmatic startup environment, caching is the most effective 'quick win' for improving performance and reducing operational costs. By serving frequent queries from memory, you reduce the load on your primary database, allowing it to handle more write operations. Common implementations include browser caching, CDN caching for static assets, and application-level caching using tools like Redis. However, caching introduces the 'cache invalidation' problem—ensuring the user doesn't see stale, outdated data. The fundamental trade-off is speed and reduced load versus data consistency and increased architectural complexity.",
+    "core_signals": [
+      "In-memory storage",
+      "Reduced latency",
+      "Cache hit vs Cache miss",
+      "TTL (Time to Live)",
+      "Reduced DB load",
+      "Data consistency",
+      "Redis or Memcached"
+    ],
+    "advanced_signals": [
+      "Cache invalidation strategies (Write-through vs Write-back)",
+      "Dealing with stale data",
+      "Thundering herd problem",
+      "Distributed vs Local caching"
+    ],
+    "common_misconceptions": [
+      "Using cache as a primary permanent data store",
+      "Caching everything without considering memory limits",
+      "Ignoring the overhead of keeping the cache updated"
+    ]
+  },
+  {
+    "concept": "Step-by-step bug fixing approach",
+    "explanation": "A structured bug-fixing approach is critical for junior engineers to avoid 'shotgun debugging'—randomly changing code hoping for a fix. The process starts with 'Observation and Reproduction': confirming the bug exists and identifying the specific environment and steps that trigger it. Next is 'Isolation': narrowing down the codebase to the specific module or line causing the error, often using tools like debuggers, logs, or the 'binary search' method (commenting out halves of code). Once the root cause is understood, a 'Fix' is implemented. Crucially, in a professional setting, this is followed by 'Verification': ensuring the fix works and doesn't introduce regressions. For a startup, this also involves a post-mortem mindset—asking if a unit test could have caught this or if the design invited the error. This systematic approach ensures bugs stay fixed and the developer learns the underlying system logic.",
+    "core_signals": [
+      "Reproduce the issue first",
+      "Isolate the root cause",
+      "Binary search method",
+      "Verify the fix",
+      "Regression testing",
+      "Hypothesis testing",
+      "Root cause analysis"
+    ],
+    "advanced_signals": [
+      "Edge case identification",
+      "Automating the reproduction case",
+      "Analyzing the 'why' beyond the 'how'",
+      "Impact assessment on existing users"
+    ],
+    "common_misconceptions": [
+      "Changing code immediately before understanding the cause",
+      "Assuming a bug is fixed because it doesn't show up once",
+      "Blaming the compiler or environment first"
+    ]
+  },
+  {
+    "concept": "Reading and interpreting logs",
+    "explanation": "Logs are the primary 'black box' recorder of a software system. Interpreting them effectively involves more than just looking for red text; it requires understanding the context of the execution flow. Good logs contain a timestamp, a severity level (DEBUG, INFO, WARN, ERROR, FATAL), a trace ID (to follow a request across services), and a descriptive message with relevant metadata. When a bug occurs, an engineer should look for the 'stack trace' to identify the sequence of function calls leading to the failure. In a startup, where resources are lean, being able to correlate logs from different parts of the stack (e.g., frontend error vs backend timeout) is a superpower. It requires a balance: logging too little makes debugging impossible, but logging too much (log spam) can hide critical issues and increase storage costs. Effective log reading is about pattern matching and filtering noise to find the anomaly.",
+    "core_signals": [
+      "Log levels (ERROR vs WARN)",
+      "Stack trace analysis",
+      "Timestamp correlation",
+      "Search and filter",
+      "Context/Metadata",
+      "Request IDs / Trace IDs"
+    ],
+    "advanced_signals": [
+      "Log aggregation (ELK stack/Splunk)",
+      "Structured logging (JSON)",
+      "Identifying cascading failures via logs",
+      "Anonymizing PII in logs"
+    ],
+    "common_misconceptions": [
+      "Thinking logs are only for errors",
+      "Assuming the last line of the log is always the root cause",
+      "Overlooking 'silent' warnings that precede a crash"
+    ]
+  },
+  {
+    "concept": "Reproducing issues reliably",
+    "explanation": "Reliable reproduction is the foundation of debugging; if you can't trigger the bug at will, you can't prove you've fixed it. This involves recreating the exact state of the system when the error occurred. For a fresher, this means identifying the 'minimal viable reproduction'—the smallest set of steps, data, and configuration needed to manifest the bug. This often requires matching the environment (OS, browser, library versions) and the specific user input. In a pragmatic startup scenario, this might involve 'cloning' a slice of production data to a staging environment or using tools to mock external API responses that are failing. If a bug is intermittent (a 'Heisenbug'), the focus shifts to race conditions or resource constraints. A successful reproduction often culminates in a failing test case that serves as a benchmark for the eventual fix.",
+    "core_signals": [
+      "Deterministic reproduction",
+      "Minimal reproduction case",
+      "Environment parity",
+      "Isolating variables",
+      "Mocking dependencies",
+      "Input data matching"
+    ],
+    "advanced_signals": [
+      "Handling race conditions/flaky bugs",
+      "Using containers for environment matching",
+      "Recording and replaying network traffic",
+      "Identifying side-effect triggers"
+    ],
+    "common_misconceptions": [
+      "Trying to fix a bug you haven't seen happen yet",
+      "Ignoring the environment differences (e.g., 'works on my machine')",
+      "Giving up on intermittent bugs as 'random'"
+    ]
+  },
+  {
+    "concept": "Breaking down ambiguous problems",
+    "explanation": "Ambiguity is the default state in startups. When faced with a vague problem like 'the app is slow' or 'users are dropping off,' an engineer must use a 'divide and conquer' strategy. This begins with defining the boundaries of the problem: Is it a backend issue, frontend issue, or a network problem? You break the monolith of 'unhappiness' into smaller, testable hypotheses. For example, check the database query time, then the API response time, then the frontend rendering time. This logical decomposition prevents the engineer from feeling overwhelmed. The goal is to transform an ill-defined problem into a series of technical tasks. It requires asking clarifying questions to stakeholders to narrow the scope and using data (metrics/logs) rather than intuition to guide the breakdown. Success here is measured by how quickly you can turn 'I don't know what's wrong' into 'I have three specific things to check.'",
+    "core_signals": [
+      "Divide and conquer",
+      "Clarifying questions",
+      "Hypothesis driven",
+      "Breadth-first search of issues",
+      "Identifying constraints",
+      "First principles thinking"
+    ],
+    "advanced_signals": [
+      "Prioritizing by impact vs effort",
+      "Mapping user journeys to technical components",
+      "Identifying 'unknown unknowns'",
+      "Iterative refinement of problem scope"
+    ],
+    "common_misconceptions": [
+      "Jumping to a solution before defining the problem",
+      "Getting stuck in 'analysis paralysis'",
+      "Assuming the problem is where the symptom appears"
+    ]
+  },
+  {
+    "concept": "Identifying performance bottlenecks",
+    "explanation": "A bottleneck is the single component in a system that limits its overall throughput or increases latency. To identify one, an engineer must look at the 'Path of a Request' and measure time spent at each hop. Common culprits include unoptimized database queries (like N+1 problems), lack of indexing, blocking I/O operations, or CPU-intensive tasks running on the main thread. In a startup, we use profiling tools and APM (Application Performance Monitoring) to visualize where time is being 'leaked.' The strategy is to find the 'slowest' part that, if improved, would give the biggest gain—Amdahl's Law in practice. It’s also vital to distinguish between resource exhaustion (CPU/Memory at 100%) and logical contention (waiting for a database lock). Junior engineers should focus on the most common layer—the database—before trying to optimize fine-grained code logic.",
+    "core_signals": [
+      "Profiling tools",
+      "N+1 query problem",
+      "Database indexing",
+      "I/O wait time",
+      "CPU vs Memory bound",
+      "Latency vs Throughput",
+      "APM metrics"
+    ],
+    "advanced_signals": [
+      "Flame graphs interpretation",
+      "Database lock contention",
+      "Network tail latency (P99)",
+      "Garbage collection overhead"
+    ],
+    "common_misconceptions": [
+      "Premature optimization of logic that rarely runs",
+      "Thinking more hardware always fixes a software bottleneck",
+      "Confusing 'slow' with 'broken'"
+    ]
+  },
+  {
+    "concept": "Manual vs automated testing mindset",
+    "explanation": "Manual testing is about exploration and human intuition—finding 'weird' UI bugs or usability issues that a script might miss. It is fast to start but doesn't scale. Automated testing (Unit, Integration, E2E) is about regression and speed of iteration—ensuring that new code doesn't break existing features. For a fresher in a startup, the mindset shift is from 'testing to see if it works' (manual) to 'writing a safety net so I can move fast without fear' (automated). Automated tests act as executable documentation. However, a pragmatic engineer knows that 100% test coverage is often a waste of time; the goal is to cover the 'happy paths' and critical business logic. Manual testing remains valuable for new features and UX, while automated testing is essential for the CI/CD pipeline. The balance is key: automate the boring, repetitive, and critical; manually test the creative and complex.",
+    "core_signals": [
+      "Regression testing",
+      "Unit vs Integration vs E2E",
+      "Test coverage",
+      "Confidence in deployment",
+      "Repeatability",
+      "Exploratory testing"
+    ],
+    "advanced_signals": [
+      "Test-Driven Development (TDD) utility",
+      "Cost-benefit of automation",
+      "Testing in production (canary/feature flags)",
+      "Flaky test management"
+    ],
+    "common_misconceptions": [
+      "Believing automation replaces manual testing entirely",
+      "Thinking automated tests are 'extra work' rather than time savers",
+      "Focusing on coverage percentage over test quality"
+    ]
+  },
+  {
+    "concept": "What is Docker and containers",
+    "explanation": "Docker is a tool designed to make it easier to create, deploy, and run applications by using containers. A container packages up an application with all of the parts it needs, such as libraries and other dependencies, and ships it all out as one package. Unlike Virtual Machines (VMs), containers share the host's OS kernel, making them incredibly lightweight, fast to start, and resource-efficient—perfect for startup environments using microservices. The core benefit is 'Environment Consistency': it works the same on a developer's laptop, a staging server, and in production. This eliminates the 'it works on my machine' syndrome. For a junior, understanding Docker means understanding the difference between an 'Image' (the blueprint/template) and a 'Container' (the running instance). It’s about standardizing the unit of software delivery.",
+    "core_signals": [
+      "Environment consistency",
+      "Images vs Containers",
+      "Dockerfile",
+      "Isolation",
+      "Lightweight (vs VMs)",
+      "Portability",
+      "Dependencies packaging"
+    ],
+    "advanced_signals": [
+      "Container orchestration (basic mention of K8s)",
+      "Layered file system",
+      "Volume mounting for persistence",
+      "Microservices architecture fit"
+    ],
+    "common_misconceptions": [
+      "Confusing containers with Virtual Machines",
+      "Thinking Docker is a programming language",
+      "Assuming containers are inherently persistent (data loss on restart)"
+    ]
+  },
+  {
+    "concept": "CI/CD pipeline basics",
+    "explanation": "CI/CD stands for Continuous Integration and Continuous Deployment (or Delivery). It is a set of operating principles and practices that enable application development teams to deliver code changes more frequently and reliably. 'Continuous Integration' focuses on automatically building and testing code every time a developer commits to the shared repository, catching bugs early. 'Continuous Delivery/Deployment' automates the release of that validated code to environments like staging or production. In a startup, CI/CD is the engine of speed; it removes the manual 'bottleneck' of releases and ensures that the master branch is always in a deployable state. It involves a 'pipeline'—a sequence of steps: Linting -> Testing -> Building -> Deploying. This automation reduces human error and allows the team to focus on building features rather than managing releases.",
+    "core_signals": [
+      "Automated testing",
+      "Build pipeline",
+      "Early bug detection",
+      "Fast feedback loop",
+      "Deployment automation",
+      "Mainline development",
+      "GitHub Actions / Jenkins / CircleCI"
+    ],
+    "advanced_signals": [
+      "Blue-green or Canary deployments",
+      "Rollback strategies",
+      "Infrastructure as Code (IaC) integration",
+      "Security scanning in pipeline"
+    ],
+    "common_misconceptions": [
+      "Thinking CI/CD is just for big companies",
+      "Confusing 'Delivery' (manual trigger) with 'Deployment' (automatic)",
+      "Believing CI/CD removes the need for QA"
+    ]
+  },
+  {
+    "concept": "Deployment pipeline intuition",
+    "explanation": "A deployment pipeline is the automated process that moves code from a developer's machine to a production environment. Think of it as an assembly line with quality gates. It starts with Continuous Integration (CI), where code is merged, built, and tested automatically. This catches 'integration hell' early. The next phase is Continuous Delivery or Deployment (CD), where the artifact is staged and pushed to servers. In a startup context, the goal is high velocity with low risk. A good pipeline provides immediate feedback: if a test fails, the line stops, and the developer knows exactly what broke. This eliminates manual, error-prone steps like FTPing files or manual SSH restarts. Trade-offs involve pipeline speed versus thoroughness; too many slow tests can frustrate developers, while too few can lead to production outages. The core intuition is 'repeatability'—if a deployment works once, the pipeline ensures it works the same way every single time.",
+    "core_signals": [
+      "Automated testing",
+      "Continuous Integration (CI)",
+      "Continuous Deployment (CD)",
+      "Build artifacts",
+      "Staging environment",
+      "Fast feedback loop",
+      "Repeatability",
+      "Quality gates"
+    ],
+    "advanced_signals": [
+      "Blue-Green or Canary deployments",
+      "Rollback strategy",
+      "Infrastructure as Code (IaC) integration",
+      "Pipeline as Code"
+    ],
+    "common_misconceptions": [
+      "Thinking CI/CD is just for large companies",
+      "Confusing 'Continuous Delivery' with 'Continuous Deployment'",
+      "Believing a pipeline eliminates the need for manual QA entirely"
+    ]
+  },
+  {
+    "concept": "Basic monitoring and alerting",
+    "explanation": "Monitoring is the process of collecting, analyzing, and using data to track the health of your application. It’s the 'eyes and ears' of a system. Basic monitoring focuses on two categories: infrastructure metrics (CPU, memory, disk space) and application metrics (request latency, error rates, throughput). Alerting is the proactive side—notifying the right person when a metric crosses a dangerous threshold. For a junior dev, the intuition is 'observability': you can't fix what you can't see. In a startup, you want to move fast, which means you'll inevitably break things; monitoring ensures you are the first to know, rather than your customers. Effective alerting avoids 'alert fatigue' by only triggering for actionable issues. The trade-off is often cost and complexity; storing massive amounts of logs and metrics can become expensive and noisy if not curated.",
+    "core_signals": [
+      "Metrics and Logs",
+      "Uptime",
+      "Latency (Response time)",
+      "Error rates (5xx errors)",
+      "Thresholds",
+      "Actionable alerts",
+      "Dashboards",
+      "Resource utilization"
+    ],
+    "advanced_signals": [
+      "The Four Golden Signals",
+      "Alert fatigue prevention",
+      "Symptom-based vs. Cause-based alerting",
+      "Log aggregation (ELK/Splunk)"
+    ],
+    "common_misconceptions": [
+      "Thinking monitoring and logging are the same thing",
+      "Setting alerts for every single minor fluctuation",
+      "Monitoring only the server, not the user experience"
+    ]
+  },
+  {
+    "concept": "Writing maintainable code principles",
+    "explanation": "Maintainable code is code that can be easily understood, modified, and extended by someone other than the original author (including your future self). The core principles involve readability, simplicity, and decoupling. Use meaningful naming conventions over clever, compact code. Adhere to the DRY (Don't Repeat Yourself) principle to avoid logic duplication, but balance it against over-abstraction. Follow the 'Single Responsibility Principle'—a function or class should do one thing well. In a pragmatic startup environment, maintainability is a debt management strategy; writing 'quick and dirty' code might save an hour today but cost a week later when a bug is buried in 'spaghetti' logic. Well-structured code includes sensible comments (explaining 'why', not 'what') and consistent formatting. It’s about reducing the 'cognitive load' required for a peer to jump into the codebase and be productive.",
+    "core_signals": [
+      "Readability over cleverness",
+      "Meaningful naming",
+      "DRY (Don't Repeat Yourself)",
+      "Single Responsibility Principle",
+      "Modular design",
+      "KISS (Keep It Simple, Stupid)",
+      "Consistency",
+      "Self-documenting code"
+    ],
+    "advanced_signals": [
+      "Extensibility and Open-Closed Principle",
+      "Composition over Inheritance",
+      "Managing Technical Debt",
+      "Unit testability as a proxy for quality"
+    ],
+    "common_misconceptions": [
+      "Thinking more comments makes code more maintainable",
+      "Over-engineering solutions for future problems that don't exist yet",
+      "Equating 'working code' with 'good code'"
+    ]
+  },
+  {
+    "concept": "Code review process and benefits",
+    "explanation": "Code reviews are a collaborative process where developers examine each other's code before it's merged. While they function as a quality gate to catch bugs and security vulnerabilities, their primary 'soft' benefit is knowledge sharing. They ensure that at least two people understand any given change, preventing 'knowledge silos.' For a junior, reviews are a mentorship tool; for the team, they ensure adherence to style guides and architectural standards. A good review process is constructive, not punitive. It focuses on the code, not the person. In a startup, the trade-off is speed; a heavy review process can bottleneck features. Therefore, the focus should be on high-impact logic rather than nitpicking formatting (which should be automated via linters). The goal is to raise the 'collective bar' of the engineering team while maintaining a positive culture of ego-less feedback.",
+    "core_signals": [
+      "Knowledge sharing",
+      "Bug detection",
+      "Consistency",
+      "Constructive feedback",
+      "Pull Request (PR) workflow",
+      "Mentorship",
+      "Standardization",
+      "Collective ownership"
+    ],
+    "advanced_signals": [
+      "Distinguishing between 'nits' and blockers",
+      "Reviewing for edge cases/security",
+      "Optimizing review turnaround time",
+      "Atomic commits"
+    ],
+    "common_misconceptions": [
+      "Viewing reviews as a personal attack or 'test'",
+      "Thinking reviews are only for finding bugs",
+      "Expecting the reviewer to catch every single error"
+    ]
+  },
+  {
+    "concept": "Testing levels (Unit, Integration, E2E)",
+    "explanation": "Testing is categorized into levels based on scope and isolation. Unit tests are the foundation; they test individual functions or classes in total isolation using 'mocks' for dependencies. They are fast and cheap. Integration tests check how different modules or services work together, such as an API communicating with a database. End-to-End (E2E) tests simulate a real user journey through the entire stack (frontend to backend). The 'Testing Pyramid' strategy suggests having many unit tests, fewer integration tests, and even fewer E2E tests. This is because as tests get broader, they become slower, more 'flaky' (liable to fail due to environment issues), and harder to debug. In a startup, unit tests provide the confidence to refactor, while a few critical E2E tests ensure that the 'happy path' (e.g., a user signing up) never breaks.",
+    "core_signals": [
+      "Testing Pyramid",
+      "Mocks and Stubs",
+      "Isolation",
+      "Happy path",
+      "Regression testing",
+      "Fast feedback",
+      "Code coverage",
+      "Flakiness"
+    ],
+    "advanced_signals": [
+      "Trade-offs in test execution time",
+      "Contract testing",
+      "Test-Driven Development (TDD) intuition",
+      "Integration testing with real vs. containerized DBs"
+    ],
+    "common_misconceptions": [
+      "Aiming for 100% code coverage without meaningful assertions",
+      "Thinking E2E tests are the most important because they 'test everything'",
+      "Confusing unit tests with integration tests"
+    ]
+  },
+  {
+    "concept": "Version Control (Git) and Branching",
+    "explanation": "Version control is the system for tracking changes to code over time. Git, the industry standard, allows multiple developers to work on the same project simultaneously without overwriting each other's work. Branching is the killer feature: it allows you to create a 'parallel universe' to build a new feature or fix a bug without affecting the 'main' stable code. Once the work is done and tested, it's merged back. Common workflows include 'Git Flow' or 'GitHub Flow' (feature branching). For a junior, understanding 'merge conflicts' is crucial—it happens when two people change the same line. The startup intuition here is 'safety and collaboration.' You can experiment wildly on a branch, and if it fails, you just delete it. It also provides a historical audit log: who changed what, when, and why (via commit messages).",
+    "core_signals": [
+      "Commits",
+      "Branching",
+      "Merging",
+      "Merge conflicts",
+      "Pull Requests",
+      "Remote vs. Local",
+      "Staging area",
+      "Reverting changes"
+    ],
+    "advanced_signals": [
+      "Rebasing vs. Merging",
+      "Cherry-picking",
+      "Git hooks for automation",
+      "Squashing commits"
+    ],
+    "common_misconceptions": [
+      "Thinking Git is just a backup tool (like Dropbox)",
+      "Fear of merge conflicts (avoiding them by not branching)",
+      "Commit messages like 'fixed stuff' or 'update'"
+    ]
+  },
+  {
+    "concept": "Technical Debt intuition",
+    "explanation": "Technical debt is the cost of choosing an easy, fast solution now instead of a better, more robust approach that would take longer. Like financial debt, it 'charges interest' in the form of extra effort required for future changes. It is not necessarily 'bad code'; in a startup, taking on debt is often a strategic choice to meet a market deadline or validate a feature. However, if you don't 'pay it back' by refactoring later, the interest accumulates until the team can no longer ship new features because they are stuck fixing old ones. The intuition for an L1 dev is recognizing when a 'hack' is being used and documenting it. Maintainable systems require a balance: shipping quickly while keeping the debt manageable enough that the codebase doesn't become a 'legacy' nightmare in six months.",
+    "core_signals": [
+      "Trade-offs",
+      "Refactoring",
+      "Velocity vs. Quality",
+      "Interest (future cost)",
+      "Strategic shortcuts",
+      "Code rot",
+      "Scalability bottlenecks",
+      "Documentation of hacks"
+    ],
+    "advanced_signals": [
+      "Deliberate vs. Inadvertent debt",
+      "Debt ceiling (when to stop shipping)",
+      "Refactoring during feature work",
+      "Identifying 'God Objects' or 'Spaghetti' as symptoms"
+    ],
+    "common_misconceptions": [
+      "Thinking all technical debt is a result of bad engineering",
+      "Believing you can have zero technical debt",
+      "Confusing 'bugs' with 'technical debt'"
+    ]
+  },
+  {
+    "concept": "Error Handling and Resilience",
+    "explanation": "Error handling is about how an application deals with the unexpected—network failures, invalid user input, or database timeouts. Good error handling prevents an app from crashing and provides a graceful 'fallback.' For a junior, it means moving beyond just catching exceptions to thinking about 'what should the user see?' and 'how do we log this for debugging?' Resilience is the broader concept: building a system that can survive partial failures. For instance, if a third-party payment API is down, the whole app shouldn't break; maybe you show a 'maintenance' message for that specific feature. In startups, where external APIs are common, you must assume things will fail. Proper error handling includes using correct HTTP status codes, validating inputs early (fail-fast), and ensuring resources (like file handles) are always closed.",
+    "core_signals": [
+      "Try-catch-finally",
+      "Graceful degradation",
+      "Input validation",
+      "Logging",
+      "HTTP Status Codes",
+      "Fail-fast",
+      "Retries",
+      "Exception propagation"
+    ],
+    "advanced_signals": [
+      "Circuit Breaker pattern",
+      "Idempotency in retries",
+      "Custom exception hierarchies",
+      "User-friendly vs. System-level error messages"
+    ],
+    "common_misconceptions": [
+      "Swallowing exceptions (empty catch blocks)",
+      "Using exceptions for normal flow control",
+      "Thinking error handling is just for 'edge cases'"
+    ]
+  },
+  {
+    "concept": "Documentation types and value",
+    "explanation": "In engineering, documentation is the 'external memory' of the team. It bridges the gap between the code and the people using or maintaining it. There are three main types: 1) Code-level (Docstrings/Comments) which explain 'why' a specific logic exists. 2) System/Architecture (READMEs, Design Docs) which explain how components fit together. 3) API Documentation (Swagger/OpenAPI) which explains how to consume a service. For a junior in a startup, documentation is vital because team members change and features evolve fast. Good documentation isn't about writing a novel; it's about being concise and keeping it close to the code so it doesn't get outdated. It reduces 'onboarding time' and prevents the same questions from being asked repeatedly in Slack. The best documentation is often self-documenting code, but the 'intent' behind complex architectural decisions must be written down.",
+    "core_signals": [
+      "README.md",
+      "API Specs (Swagger)",
+      "Onboarding",
+      "Self-documenting code",
+      "Design documents",
+      "Knowledge base",
+      "Comments (the 'Why')",
+      "Maintenance"
+    ],
+    "advanced_signals": [
+      "Living documentation",
+      "Architecture Decision Records (ADRs)",
+      "Documentation-as-Code",
+      "Targeting different audiences (Devs vs. Users)"
+    ],
+    "common_misconceptions": [
+      "Believing good code needs no documentation at all",
+      "Thinking more documentation is always better (outdated docs are dangerous)",
+      "Writing 'what' the code does instead of 'why' it does it"
+    ]
+  },
+  {
+    "concept": "Agile and Sprint basics",
+    "explanation": "Agile is a mindset of iterative development, focusing on delivering small, incremental value frequently rather than one giant release. A 'Sprint' is a fixed time-box (usually 2 weeks) where a team commits to finishing a set of tasks. The process typically includes: Sprint Planning (picking tasks), Daily Stand-ups (syncing on progress/blockers), and Sprint Retrospectives (improving the process). For a junior, the goal is 'visibility.' It’s about breaking down a large, intimidating feature into small, trackable 'User Stories.' In a startup, Agile allows for 'pivoting'—if a feature isn't working for users, you find out in two weeks, not six months. The trade-off is that it requires constant communication and discipline. The focus is on 'working software' over comprehensive documentation and responding to change over following a rigid plan.",
+    "core_signals": [
+      "Iterative development",
+      "Sprints",
+      "User Stories",
+      "Backlog",
+      "Daily Stand-up",
+      "Retrospective",
+      "Velocity",
+      "Blockers"
+    ],
+    "advanced_signals": [
+      "Story Point estimation logic",
+      "Definition of Done (DoD)",
+      "MVP (Minimum Viable Product) mindset",
+      "Scrum vs. Kanban nuances"
+    ],
+    "common_misconceptions": [
+      "Thinking Agile means 'no planning' or 'chaos'",
+      "Treating the Stand-up as a status report to a manager instead of a team sync",
+      "Over-committing to too many tasks in one sprint"
+    ]
+  },
+  {
+    "concept": "Arrow functions and lexical this",
+    "explanation": "Arrow functions, introduced in ES6, provide a concise syntax for writing function expressions. Beyond brevity, their defining characteristic is 'lexical scoping' of the 'this' keyword. Unlike regular functions, which define their own 'this' based on how they are called (invocation context), arrow functions inherit 'this' from the enclosing execution context. In a startup environment, this is a lifesaver when working with callbacks or timers inside classes or objects, as it eliminates the need for `.bind(this)` or hacks like `var self = this;`. It ensures that when you call a method inside a `setTimeout` or a `.map()`, it still refers to the correct object instance, making code more predictable and readable.",
+    "core_signals": [
+      "Lexical scoping",
+      "No own 'this' binding",
+      "Inherited context",
+      "Concise syntax",
+      "Callback handling",
+      "Implicit return"
+    ],
+    "advanced_signals": [
+      "Non-binding of arguments object",
+      "Cannot be used as constructors",
+      "Suitability for functional programming"
+    ],
+    "common_misconceptions": [
+      "Thinking arrow functions are just a shorter 'function' keyword",
+      "Trying to use them as object methods that require dynamic 'this'",
+      "Expecting them to have a 'prototype' property"
+    ]
+  },
+  {
+    "concept": "Destructuring assignment",
+    "explanation": "Destructuring is a convenient way to extract values from arrays or properties from objects into distinct variables. Instead of manual indexing or repeated dot notation (e.g., `const name = user.name`), you can unpack them in one line: `const { name, age } = user;`. For a fresher, this is a key tool for writing 'clean' code. It is especially prevalent in modern frameworks like React for handling props or in Node.js for importing specific functions from modules. Pragmatically, it reduces boilerplate and makes the data requirements of a function or block immediately visible at the top, which is essential for maintainability in fast-moving codebases.",
+    "core_signals": [
+      "Unpacking values",
+      "Object/Array extraction",
+      "Readable code",
+      "Property aliasing",
+      "Default values",
+      "Clean syntax"
+    ],
+    "advanced_signals": [
+      "Nested destructuring",
+      "Parameter destructuring in functions",
+      "Performance vs readability trade-offs"
+    ],
+    "common_misconceptions": [
+      "Thinking it modifies the original object/array",
+      "Forgetting that order matters in arrays but not in objects",
+      "Over-nesting destructuring to the point of unreadability"
+    ]
+  },
+  {
+    "concept": "Template literals and string interpolation",
+    "explanation": "Template literals use backticks (``) instead of quotes and allow for embedded expressions via `${expression}`. This process, called interpolation, replaces the placeholder with its string value. Before this, developers had to rely on cumbersome string concatenation with the `+` operator, which was prone to errors with spaces and multiline strings. In a pragmatic setting, template literals are used for generating dynamic HTML snippets, logging detailed error messages, or constructing SQL/API queries. They support multiline strings natively, making code much cleaner and reducing the cognitive load required to visualize the final string output.",
+    "core_signals": [
+      "Backticks",
+      "Interpolation",
+      "Placeholder syntax",
+      "Multiline strings",
+      "Expression evaluation",
+      "Readability"
+    ],
+    "advanced_signals": [
+      "Tagged templates",
+      "Security (escaped strings)",
+      "Coercion to string behavior"
+    ],
+    "common_misconceptions": [
+      "Using single/double quotes instead of backticks",
+      "Thinking they are only for variables and not full expressions",
+      "Ignoring performance in massive loop concatenations"
+    ]
+  },
+  {
+    "concept": "Spread and rest operators",
+    "explanation": "Both use the `...` syntax but serve opposite purposes. The 'Spread' operator expands an iterable (like an array or object) into individual elements. It’s the go-to tool for creating shallow copies or merging data without mutating the original source. The 'Rest' operator collects multiple elements into a single array, typically used in function parameters to handle a variable number of arguments. For a junior SDE, these operators are essential for 'Immutability'—a core concept in modern state management. Instead of pushing to an array, you spread the old one into a new one. This prevents bugs where one part of the app accidentally changes data used by another.",
+    "core_signals": [
+      "Expansion vs Collection",
+      "Shallow copy",
+      "Immutability",
+      "Merging objects/arrays",
+      "Variadic functions",
+      "Variable arguments"
+    ],
+    "advanced_signals": [
+      "Rest at the end of parameters",
+      "Deep copy vs shallow copy limitations",
+      "Garbage collection of expanded objects"
+    ],
+    "common_misconceptions": [
+      "Thinking spread performs a deep copy",
+      "Confusing rest with spread based on syntax alone",
+      "Using spread on non-iterables"
+    ]
+  },
+  {
+    "concept": "Linters and formatters (ESLint, Prettier)",
+    "explanation": "Linters (like ESLint) analyze code statically to find problematic patterns, potential bugs, or non-adherence to style guidelines. Formatters (like Prettier) automatically rewrite code to ensure consistent spacing, quotes, and indentation. In a startup, these tools are 'enforcement' mechanisms. They prevent 'bikeshedding'—pointless arguments in code reviews about tabs vs. spaces. A junior engineer should see them as a safety net: the linter catches common errors (like unused variables or leaking globals) before they hit production, while the formatter ensures that the codebase looks like it was written by a single person, which is vital for team velocity and onboarding.",
+    "core_signals": [
+      "Static analysis",
+      "Code consistency",
+      "Bug prevention",
+      "Style enforcement",
+      "Pre-commit hooks",
+      "Automated formatting"
+    ],
+    "advanced_signals": [
+      "Custom rule configuration",
+      "Fixable vs non-fixable errors",
+      "Integration with CI/CD"
+    ],
+    "common_misconceptions": [
+      "Thinking formatters find logic bugs",
+      "Viewing linting errors as annoying rather than helpful",
+      "Disabling rules instead of fixing the underlying code"
+    ]
+  },
+  {
+    "concept": "Unit testing basics and why it matters",
+    "explanation": "Unit testing involves testing the smallest 'units' of code—usually individual functions—in isolation. The goal is to verify that for a given input, the function produces the expected output. In the high-pressure environment of a startup, unit tests act as a 'living documentation' and a safety harness. They allow developers to refactor or add new features with confidence, knowing they haven't broken existing logic. For a fresher, the mindset shift is key: you don't just write code to work; you write tests to prove it works and to prevent 'regression' (re-introducing old bugs). It’s about spending 20% more time now to save 200% more time in future debugging.",
+    "core_signals": [
+      "Isolation",
+      "Input/Output verification",
+      "Regression testing",
+      "Refactoring confidence",
+      "Test-Driven Development (TDD) intuition",
+      "Assert statements"
+    ],
+    "advanced_signals": [
+      "Mocking/Stubbing",
+      "Code coverage metrics",
+      "Edge case identification"
+    ],
+    "common_misconceptions": [
+      "Thinking unit tests find all bugs",
+      "Testing implementation details instead of behavior",
+      "Believing testing is a separate 'QA' job"
+    ]
+  },
+  {
+    "concept": "README and inline documentation importance",
+    "explanation": "Documentation is the bridge between the code and the humans who use or maintain it. A README is the front door of a project, explaining 'what' the project does, 'how' to set it up, and 'why' it exists. Inline documentation (comments) explains 'why' a specific piece of complex logic exists, rather than 'what' the code is doing (which should be obvious from the code itself). In a startup, code changes fast. Good documentation reduces the 'bus factor'—the risk of knowledge being lost if one person leaves. A junior SDE who documents well is highly valued because they make the team more efficient by reducing the time others spend deciphering their logic.",
+    "core_signals": [
+      "Knowledge sharing",
+      "Setup instructions",
+      "The 'Why' not the 'What'",
+      "Maintainability",
+      "Bus factor reduction",
+      "Self-documenting code"
+    ],
+    "advanced_signals": [
+      "Documentation as Code",
+      "API documentation (Swagger/OpenAPI)",
+      "Technical debt visibility"
+    ],
+    "common_misconceptions": [
+      "Thinking comments are a substitute for clean code",
+      "Believing documentation is a 'one-time' task",
+      "Writing READMEs only for external users, not teammates"
+    ]
+  },
+  {
+    "concept": "Set data structure and uniqueness",
+    "explanation": "A Set is a collection of values where each value must be unique; duplicate entries are automatically discarded. Unlike arrays, Sets are unordered and do not provide index-based access. In a pragmatic SDE context, Sets are incredibly efficient for 'membership checks' (asking 'is this item in the list?') because they usually offer $O(1)$ average time complexity compared to an array's $O(n)$. They are the perfect tool for tasks like filtering out duplicate IDs from an API response or tracking unique user visits. Understanding when to use a Set instead of an Array shows an interviewer that the candidate cares about both data integrity and performance optimization.",
+    "core_signals": [
+      "Unique elements",
+      "Membership check",
+      "O(1) lookup",
+      "Deduplication",
+      "Unordered collection",
+      "Set operations (Union/Intersection)"
+    ],
+    "advanced_signals": [
+      "WeakSet usage",
+      "Hashing mechanisms",
+      "Memory trade-offs vs Arrays"
+    ],
+    "common_misconceptions": [
+      "Thinking Sets maintain the order of insertion like arrays",
+      "Using a Set when you need to access elements by index",
+      "Forgetting that object references in Sets are compared by identity"
+    ]
+  },
+  {
+    "concept": "Map vs Object differences",
+    "explanation": "While both store key-value pairs, they have distinct use cases. Objects are best used as 'records' with a fixed structure (e.g., a User object). Maps are specialized collections for dynamic key-value storage. Key differences include: 1) Maps allow any data type (even objects) as keys, while Object keys are restricted to Strings or Symbols. 2) Maps maintain the insertion order of keys. 3) Maps have a built-in `.size` property. In a startup, using a Map is often a signal of intentionality—it suggests you are handling a dictionary-like structure where you'll frequently add/remove entries or need a specific key type, whereas an Object is chosen for data modeling and POJOs.",
+    "core_signals": [
+      "Key types",
+      "Insertion order",
+      "Size property",
+      "Iterable nature",
+      "Performance for frequent additions",
+      "Dictionary vs Record"
+    ],
+    "advanced_signals": [
+      "WeakMap for memory management",
+      "JSON serialization differences",
+      "Lookup performance at scale"
+    ],
+    "common_misconceptions": [
+      "Thinking Objects and Maps are identical in performance",
+      "Using an Object when keys need to be non-strings",
+      "Forgetting that Objects have inherited prototype keys"
+    ]
+  },
+  {
+    "concept": "API versioning strategies",
+    "explanation": "API versioning is the practice of managing changes to an API so that existing clients don't break when updates are made. Common strategies include URL versioning (e.g., `/v1/users`), Header versioning (using custom headers), or Media Type versioning. For a startup, versioning is about balancing speed with 'backward compatibility.' You want to ship new features without forcing all your mobile app users to update their apps immediately. A junior SDE should understand that a 'Breaking Change' (like deleting a field or changing a data type) necessitates a new version, whereas adding a new field usually doesn't. This ensures a smooth user experience even as the backend evolves rapidly.",
+    "core_signals": [
+      "Backward compatibility",
+      "Breaking changes",
+      "URL versioning",
+      "Header versioning",
+      "Deprecation policy",
+      "Contract stability"
+    ],
+    "advanced_signals": [
+      "Semantic versioning for APIs",
+      "Sunset dates",
+      "Gateway-level routing"
+    ],
+    "common_misconceptions": [
+      "Thinking every small change needs a new version",
+      "Assuming clients will always update to the latest version",
+      "Neglecting to document which versions are active"
+    ]
+  },
+  {
+    "concept": "Query parameters vs path parameters",
+    "explanation": "Both are used to pass data to the server via a URL, but for different purposes. Path parameters (e.g., `/users/:id`) are part of the URL path and identify a specific resource; they are 'essential' to the identity of the request. Query parameters (e.g., `/users?sort=desc`) appear after the `?` and are used to filter, sort, or paginate the results. A pragmatic rule of thumb: use Path parameters for 'which thing' you want, and Query parameters for 'how' you want to see it. In an interview, distinguishing these correctly shows a grasp of RESTful design principles and an understanding of how to build clean, intuitive API structures that other developers can easily navigate.",
+    "core_signals": [
+      "Resource identification",
+      "Filtering/Sorting",
+      "RESTful structure",
+      "Optional vs Required",
+      "URL anatomy",
+      "Semantic naming"
+    ],
+    "advanced_signals": [
+      "SEO implications of URL structure",
+      "Security (not putting sensitive data in URLs)",
+      "Matrix parameters"
+    ],
+    "common_misconceptions": [
+      "Using query parameters to identify a unique resource",
+      "Thinking query parameters are more secure than path parameters",
+      "Mixing them up in a way that creates confusing URLs"
+    ]
+  },
+  {
+    "concept": "CORS (Cross-Origin Resource Sharing) basics",
+    "explanation": "CORS is a security mechanism implemented by browsers that restricts web pages from making requests to a different domain than the one that served the page. If your frontend is on `app.com` and your backend is on `api.com`, the browser will block the request unless the server explicitly allows it via specific HTTP headers (like `Access-Control-Allow-Origin`). For a junior SDE, 'CORS errors' are a rite of passage. Pragmatically, it’s not a bug in the code, but a configuration issue. Understanding 'Preflight requests' (the OPTIONS call the browser sends first) is a sign of a more mature developer who understands the handshake between the client, the browser, and the server.",
+    "core_signals": [
+      "Same-origin policy",
+      "HTTP Headers",
+      "Preflight (OPTIONS) request",
+      "Security boundary",
+      "Allowed origins",
+      "Browser enforcement"
+    ],
+    "advanced_signals": [
+      "Credentials/Cookies in CORS",
+      "Wildcard origins risks",
+      "Reverse proxy workarounds"
+    ],
+    "common_misconceptions": [
+      "Thinking CORS is a server-side security fix (it's for the browser)",
+      "Trying to 'fix' CORS by changing frontend code alone",
+      "Assuming Postman/Curl will have CORS issues (they don't)"
+    ]
+  },
+  {
+    "concept": "Stateless vs stateful servers",
+    "explanation": "A stateless server does not store any client session information on the server side. Every request from a client must contain all the information necessary to understand and fulfill that request (often via a JWT token). A stateful server keeps track of client sessions (e.g., in-memory sessions). In the world of modern startups and cloud computing, 'Statelessness' is king because it allows for easy scaling. You can have ten servers, and it doesn't matter which one a user hits because the server doesn't 'remember' them—the request itself provides the identity. This makes the system more resilient and significantly easier to manage across distributed environments.",
+    "core_signals": [
+      "Scalability",
+      "Session management",
+      "JWT/Tokens",
+      "Horizontal scaling",
+      "Request independence",
+      "Shared state"
+    ],
+    "advanced_signals": [
+      "Sticky sessions",
+      "Distributed caching (Redis)",
+      "Load balancer implications"
+    ],
+    "common_misconceptions": [
+      "Thinking stateless means no database is used",
+      "Believing stateful is always 'bad' (useful for low-latency games)",
+      "Confusing server state with client-side state"
+    ]
+  },
+  {
+    "concept": "OAuth 2.0 flow intuition",
+    "explanation": "OAuth 2.0 is an authorization framework that allows a user to grant a third-party application access to their information on another service (like 'Login with Google') without sharing their password. It works through a 'Delegation' model. The user authenticates with the provider (Google), who then gives a 'Code' to the application, which the application exchanges for an 'Access Token'. For a fresher, the key intuition is that the application never sees the user's password; it only gets a token that acts as a limited-access key. This is a fundamental pattern for modern security and integration, ensuring that user credentials remain safe even if a specific application is compromised.",
+    "core_signals": [
+      "Authorization vs Authentication",
+      "Access Tokens",
+      "Delegation",
+      "Third-party access",
+      "Redirect URIs",
+      "Scopes"
+    ],
+    "advanced_signals": [
+      "Authorization Code Grant",
+      "Implicit vs PKCE flows",
+      "Token expiration/revocation"
+    ],
+    "common_misconceptions": [
+      "Confusing OAuth (Authorization) with OpenID Connect (Authentication)",
+      "Thinking OAuth is just for 'Social Login'",
+      "Storing access tokens insecurely in local storage"
+    ]
+  },
+  {
+    "concept": "Refresh tokens purpose",
+    "explanation": "Access tokens are usually short-lived (e.g., 15 minutes) for security reasons—if one is stolen, the window of damage is small. However, forcing a user to log in every 15 minutes is a terrible user experience. Refresh tokens solve this. They are long-lived tokens stored securely that can be used to request a new access token without the user re-entering credentials. In a startup, this is a core part of 'Auth' architecture. The pragmatic trade-off is that refresh tokens must be handled with extreme care; they are often stored in 'HttpOnly' cookies or secure backends because they are the 'keys to the kingdom' that allow long-term access to a user's account.",
+    "core_signals": [
+      "Token rotation",
+      "User experience (UX)",
+      "Short-lived access tokens",
+      "Security/Risk mitigation",
+      "Session persistence",
+      "Silent re-auth"
+    ],
+    "advanced_signals": [
+      "Refresh token rotation",
+      "Revocation lists",
+      "Secure storage (HttpOnly)"
+    ],
+    "common_misconceptions": [
+      "Thinking refresh tokens are sent with every API call",
+      "Believing they are the same as access tokens",
+      "Using them on the frontend without proper security measures"
+    ]
+  },
+  {
+    "concept": "CSRF (Cross-Site Request Forgery) awareness",
+    "explanation": "CSRF is an attack where a malicious website tricks a user's browser into performing an unwanted action on a different website where the user is currently authenticated. This is possible because browsers automatically include cookies (like session IDs) in requests to the associated domain. Imagine clicking a link that secretly sends a 'Transfer Money' request to your bank. Modern protection involves using 'CSRF Tokens'—unique, secret values that the server requires to be sent with any state-changing request (POST, PUT, DELETE). For a junior SDE, awareness of CSRF is a signal of security-first thinking, ensuring that any action that modifies data is verified to have originated from the legitimate application UI.",
+    "core_signals": [
+      "Unauthorized actions",
+      "Cookie-based attacks",
+      "Anti-CSRF tokens",
+      "SameSite cookie attribute",
+      "State-changing requests",
+      "Origin validation"
+    ],
+    "advanced_signals": [
+      "Double Submit Cookies",
+      "CORS vs CSRF",
+      "Stateless auth (JWT) mitigations"
+    ],
+    "common_misconceptions": [
+      "Thinking HTTPS prevents CSRF",
+      "Believing it's the same as XSS",
+      "Assuming GET requests are always safe from CSRF"
+    ]
+  },
+  {
+    "concept": "Secure random number generation basics",
+    "explanation": "In programming, standard random functions (like `Math.random()`) are 'pseudo-random'—they are deterministic and predictable if the 'seed' is known, making them unsuitable for security. Secure random number generation uses 'cryptographically strong' sources of entropy (like hardware noise) to produce numbers that are impossible to predict. In a startup, this is critical for generating passwords, API keys, session IDs, or password reset tokens. A junior SDE should know that using a weak random function for security features is a major vulnerability. Pragmatically, always use the platform's built-in crypto library (e.g., `crypto.getRandomValues` in the browser or `crypto.randomBytes` in Node.js) for anything security-related.",
+    "core_signals": [
+      "Entropy",
+      "CSPRNG (Cryptographically Secure Pseudo-Random Number Generator)",
+      "Predictability",
+      "Cryptographic keys",
+      "Math.random() pitfalls",
+      "Security tokens"
+    ],
+    "advanced_signals": [
+      "Seeding",
+      "Uniform distribution",
+      "Hardware security modules (HSM)"
+    ],
+    "common_misconceptions": [
+      "Using Math.random() for sensitive tokens",
+      "Thinking 'random enough' is okay for security",
+      "Not knowing their language's specific crypto library"
+    ]
+  },
+  {
+    "concept": "ACID properties intuition",
+    "explanation": "ACID is a set of properties (Atomicity, Consistency, Isolation, Durability) that guarantee database transactions are processed reliably. **Atomicity** means 'all or nothing'—if one part of a transaction fails, the whole thing is rolled back. **Consistency** ensures the database moves from one valid state to another. **Isolation** ensures concurrent transactions don't interfere. **Durability** guarantees that once a transaction is committed, it stays committed even in a crash. For a fresher, ACID is the reason your bank account doesn't lose money during a transfer if the power goes out. In a startup, choosing an ACID-compliant database (like PostgreSQL) is a standard move for financial or critical user data where integrity is more important than raw write speed.",
+    "core_signals": [
+      "All-or-nothing",
+      "Data integrity",
+      "Transaction reliability",
+      "Rollbacks",
+      "Concurrency control",
+      "Persistence"
+    ],
+    "advanced_signals": [
+      "Isolation levels (Read Committed, etc.)",
+      "Write-Ahead Logging (WAL)",
+      "CAP Theorem trade-offs"
+    ],
+    "common_misconceptions": [
+      "Thinking ACID applies to all databases (NoSQL often differs)",
+      "Confusing Consistency in ACID with Consistency in CAP",
+      "Thinking transactions are 'free' (they have a performance cost)"
+    ]
+  },
+  {
+    "concept": "Explain plan / query execution basics",
+    "explanation": "An 'Explain Plan' is a tool provided by databases that shows the step-by-step path the database engine takes to execute a query. It reveals if the database is using an index (fast) or doing a full table scan (slow). For a pragmatic SDE, looking at the explain plan is the first step in debugging a slow application. Instead of guessing why a page takes 5 seconds to load, you 'Explain' the query to see the bottleneck. Understanding this shows you don't just write code that works; you write code that performs. It’s the difference between a junior who just writes 'SELECT *' and one who optimizes for the scale a startup hopes to achieve.",
+    "core_signals": [
+      "Query optimization",
+      "Index scan vs Table scan",
+      "Performance bottleneck",
+      "Execution cost",
+      "Database engine logic",
+      "Bottleneck identification"
+    ],
+    "advanced_signals": [
+      "Join algorithms (Nested loop vs Hash join)",
+      "Cardinality estimation",
+      "Statistics updates"
+    ],
+    "common_misconceptions": [
+      "Thinking more indexes always make things faster",
+      "Ignoring the explain plan until the database crashes",
+      "Assuming the database always chooses the best path automatically"
+    ]
+  },
+  {
+    "concept": "NoSQL vs SQL when to choose (fresher view)",
+    "explanation": "SQL (Relational) databases are structured, use schemas, and are great for complex queries and data integrity (ACID). NoSQL (Non-relational) databases are flexible, often schema-less, and designed for horizontal scaling and high-velocity data. For a startup, the choice is pragmatic: use SQL when your data is highly related (like an e-commerce order system) and you need strict consistency. Use NoSQL (like MongoDB) when your data structure is evolving rapidly, or you're handling massive amounts of unstructured data (like logs or real-time feeds). A junior should recognize that NoSQL isn't 'better'—it's a trade-off: you gain flexibility and scale but often lose the power of complex joins and strict relational constraints.",
+    "core_signals": [
+      "Schema vs Schemaless",
+      "Relational data",
+      "Horizontal vs Vertical scaling",
+      "Data consistency",
+      "JSON-like documents",
+      "Join complexity"
+    ],
+    "advanced_signals": [
+      "Impedance mismatch",
+      "Normalization vs Denormalization",
+      "Eventual consistency"
+    ],
+    "common_misconceptions": [
+      "Thinking NoSQL doesn't have relationships",
+      "Believing SQL can't scale",
+      "Choosing NoSQL just because it's 'modern'"
+    ]
+  },
+  {
+    "concept": "Document database basics (MongoDB intuition)",
+    "explanation": "Document databases store data in flexible, JSON-like documents rather than rows and columns. Each document can have a different structure, allowing for 'schema-on-read'. In a startup, this 'fluidity' is a huge advantage during the early stages when the product is changing every week. You don't have to run a complex 'migration' just to add a new field to a user profile. However, this flexibility places the responsibility of data integrity on the application code rather than the database. A junior should understand that while MongoDB feels like 'just saving objects,' you still need to think about how you'll query that data later to avoid performance pitfalls.",
+    "core_signals": [
+      "JSON/BSON",
+      "Collections vs Tables",
+      "Dynamic schema",
+      "Embedded documents",
+      "Scalability",
+      "Developer velocity"
+    ],
+    "advanced_signals": [
+      "Indexing strategies in NoSQL",
+      "Aggregation framework",
+      "Sharding basics"
+    ],
+    "common_misconceptions": [
+      "Thinking you don't need to plan your data model",
+      "Assuming 'schema-less' means 'no structure'",
+      "Overusing nesting to the point that documents become too large"
+    ]
+  },
+  {
+    "concept": "Designing a notification system (simple)",
+    "explanation": "A simple notification system involves an 'Event' (like a new message), a 'Trigger' (logic that decides to notify), and a 'Delivery Channel' (Email, SMS, Push). For a fresher, the design focus should be on decoupling: the service that creates the message shouldn't be the same one that sends the email. Using a 'Queue' (like BullMQ or RabbitMQ) is the pragmatic startup approach. This ensures that if the email provider is slow or down, the main application doesn't freeze. It also allows for 'retries' if a notification fails. Understanding this basic flow shows an interviewer you can think about system reliability and the separation of concerns beyond a simple 'hello world' app.",
+    "core_signals": [
+      "Decoupling",
+      "Event-driven",
+      "Message queues",
+      "Delivery channels",
+      "Retry logic",
+      "Async processing"
+    ],
+    "advanced_signals": [
+      "User preferences/Opt-outs",
+      "Notification batching",
+      "Idempotency (not sending twice)"
+    ],
+    "common_misconceptions": [
+      "Sending notifications synchronously in the main request",
+      "Hardcoding a single delivery channel",
+      "Not handling failures when a third-party API is down"
+    ]
+  },
+  {
+    "concept": "Rate limiting implementation intuition",
+    "explanation": "Rate limiting is the practice of limiting the number of requests a user can make to an API within a certain timeframe (e.g., 100 requests per minute). It protects the server from being overwhelmed by spam, bugs (like an infinite loop in a client), or malicious attacks (DDoS). For a startup, it's also about 'fair use' and cost control. A simple way to implement this is using a 'Token Bucket' or 'Fixed Window' algorithm, often with a fast store like Redis to track counts. A junior SDE should understand that rate limiting is a fundamental layer of defense that ensures the service remains available for everyone, even if one user goes rogue.",
+    "core_signals": [
+      "Throttling",
+      "DDoS protection",
+      "Token bucket",
+      "429 Too Many Requests",
+      "Redis/In-memory tracking",
+      "Abuse prevention"
+    ],
+    "advanced_signals": [
+      "Leaky bucket algorithm",
+      "Tiered limits (Free vs Paid)",
+      "IP-based vs User-based limiting"
+    ],
+    "common_misconceptions": [
+      "Thinking rate limiting is only for security",
+      "Storing rate limit counts in a slow SQL database",
+      "Not providing helpful headers (e.g., X-RateLimit-Reset) to the client"
+    ]
+  },
+  {
+    "concept": "Database replication basics",
+    "explanation": "Database replication is the process of copying data from one database server (the 'Primary' or 'Leader') to one or more others (the 'Replicas' or 'Followers'). The primary goal is high availability and load balancing. In a pragmatic startup setup, all 'Writes' (creating/updating data) go to the Primary, while 'Reads' (fetching data) can be spread across the Replicas. This significantly boosts performance for read-heavy apps (like a social media feed). If the Primary fails, one of the Replicas can be promoted to become the new Primary, minimizing downtime. A junior should know that while replication adds power, it also introduces 'Replication Lag'—the small delay before a write shows up on a replica.",
+    "core_signals": [
+      "High availability",
+      "Read replicas",
+      "Read/Write splitting",
+      "Fault tolerance",
+      "Replication lag",
+      "Primary/Follower"
+    ],
+    "advanced_signals": [
+      "Synchronous vs Asynchronous replication",
+      "Multi-region replication",
+      "Automatic failover"
+    ],
+    "common_misconceptions": [
+      "Confusing replication with backup",
+      "Thinking data is always 100% identical instantly",
+      "Thinking replication makes writes faster (it usually doesn't)"
+    ]
+  },
+  {
+    "concept": "CDN (Content Delivery Network) purpose",
+    "explanation": "A CDN is a geographically distributed network of proxy servers that cache content (like images, CSS, and videos) closer to the user. Instead of every user in the world fetching a logo from a single server in New York, a user in Tokyo fetches it from a CDN node in Tokyo. For a startup, a CDN is the easiest way to improve 'perceived performance' and reduce server load. It makes the site feel fast globally. A junior should understand that CDNs are mostly for 'static' assets—things that don't change often. The pragmatic takeaway: offloading files to a CDN means your main server can focus on the 'dynamic' logic that only it can handle.",
+    "core_signals": [
+      "Latency reduction",
+      "Edge locations",
+      "Caching",
+      "Static assets",
+      "Global distribution",
+      "Bandwidth saving"
+    ],
+    "advanced_signals": [
+      "Cache invalidation (purging)",
+      "Edge computing (Lambda@Edge)",
+      "Origin shielding"
+    ],
+    "common_misconceptions": [
+      "Thinking CDNs are for dynamic, personalized database data",
+      "Forgetting to clear the CDN cache after updating a file",
+      "Thinking a CDN is a substitute for a good backend"
+    ]
+  },
+  {
+    "concept": "Browser dev tools for debugging",
+    "explanation": "Browser DevTools are a suite of web developer tools built directly into the browser. Key features include the 'Elements' panel (inspecting DOM/CSS), the 'Console' (JS logging), and the 'Network' tab (tracking API calls). For a fresher, the 'Sources' tab is the most powerful: it allows you to set 'Breakpoints,' which pause the code mid-execution so you can inspect variable values. In a startup, being proficient with DevTools means you can diagnose why a button doesn't work or why an API call failed in seconds rather than minutes. It's the primary environment where a frontend or full-stack SDE 'interrogates' their code to find the truth behind a bug.",
+    "core_signals": [
+      "Breakpoints",
+      "Network inspection",
+      "DOM manipulation",
+      "Console debugging",
+      "Payload inspection",
+      "Performance profiling"
+    ],
+    "advanced_signals": [
+      "Conditional breakpoints",
+      "Network throttling simulation",
+      "Memory leak profiling"
+    ],
+    "common_misconceptions": [
+      "Only using 'console.log' instead of the debugger",
+      "Not checking the network tab when an API fails",
+      "Thinking DevTools changes are saved back to the source code"
+    ]
+  },
+  {
+    "concept": "Console logging best practices",
+    "explanation": "While `console.log` is a developer's best friend, it must be used professionally. Best practices include using different log levels (`.info`, `.warn`, `.error`) to categorize messages and logging meaningful objects rather than just strings (e.g., `console.log('User:', user)`). In a pragmatic startup environment, the most critical rule is 'Clean up after yourself.' Debug logs should be removed or disabled before code hits production. Excessive logging can clutter the console, leak sensitive user data (like passwords or PII), and even slightly impact performance. A junior who logs structured, useful information—and removes it once the bug is squashed—shows great maturity and respect for the codebase.",
+    "core_signals": [
+      "Log levels (error/warn/info)",
+      "Structured logging",
+      "Sensitive data protection",
+      "Production cleanup",
+      "Meaningful messages",
+      "Debugging efficiency"
+    ],
+    "advanced_signals": [
+      "Conditional logging",
+      "Logger libraries (Winston/Pino)",
+      "Log aggregation intuition"
+    ],
+    "common_misconceptions": [
+      "Leaving 'test' logs in production code",
+      "Logging sensitive info like JWTs or passwords",
+      "Thinking console.log is the only way to debug"
+    ]
+  },
+  {
+    "concept": "Rubber duck debugging technique",
+    "explanation": "Rubber duck debugging is a method of solving a problem by explaining the code, line-by-line, to an inanimate object (like a rubber duck). The act of translating thoughts into speech forces the brain to slow down and look at the logic from a different perspective. In a startup, this is a highly pragmatic 'soft skill.' Often, the moment you start explaining a bug to a teammate, you realize the answer yourself. By 'ducking' first, you respect your teammates' time and solve problems faster. For a fresher, it's a great way to build self-reliance and deep-dive into their own logic before asking for help, which is a key trait of a successful, independent engineer.",
+    "core_signals": [
+      "Verbalizing logic",
+      "Self-reliance",
+      "Line-by-line explanation",
+      "Perspective shift",
+      "Problem decomposition",
+      "Active listening (to oneself)"
+    ],
+    "advanced_signals": [
+      "Teammate-as-a-duck etiquette",
+      "Mental model validation",
+      "Identifying 'assumptions' vs 'facts'"
+    ],
+    "common_misconceptions": [
+      "Thinking it's just a joke/meme",
+      "Feeling silly and not actually doing it",
+      "Assuming the 'duck' needs to be an expert"
+    ]
+  },
+  {
+    "concept": "Cloud basics (AWS/GCP/Azure free tier intuition)",
+    "explanation": "Cloud computing provides on-demand access to computing resources (servers, storage, databases) over the internet. Major providers like AWS, GCP, and Azure offer 'Free Tiers' which allow startups to build and test for nearly zero cost. For a junior SDE, the intuition is 'Infrastructure as a Service.' You don't buy a physical server; you 'rent' a virtual one (like an AWS EC2 instance). Pragmatically, a fresher should understand that the cloud is about elasticity—you can start small and scale instantly as users grow. Knowing your way around a cloud dashboard and understanding the difference between a virtual machine and a managed database is a massive headstart in a modern dev role.",
+    "core_signals": [
+      "On-demand resources",
+      "Scalability/Elasticity",
+      "Pay-as-you-go",
+      "Managed services",
+      "Virtualization",
+      "Free tier constraints"
+    ],
+    "advanced_signals": [
+      "Region vs Availability Zone",
+      "Infrastructure as Code (IaC) basics",
+      "Cost management/monitoring"
+    ],
+    "common_misconceptions": [
+      "Thinking the cloud is 'free' forever",
+      "Not understanding that you are still responsible for security (Shared Responsibility)",
+      "Confusing 'Cloud' with just 'Online Storage'"
+    ]
+  },
+  {
+    "concept": "Serverless functions (AWS Lambda basics)",
+    "explanation": "Serverless (like AWS Lambda or Google Cloud Functions) allows you to run code without managing any server infrastructure. You simply upload your code, and the provider runs it in response to 'Events' (like an API call or a file upload). You only pay for the exact milliseconds the code executes. For a startup, this is incredibly pragmatic: it's 'infinite' scaling with zero maintenance effort. A junior SDE should know that serverless is perfect for tasks like sending emails, processing images, or small API endpoints. However, it’s not for everything—long-running tasks or apps needing constant high-performance might be better off on traditional servers.",
+    "core_signals": [
+      "Event-driven",
+      "Zero server management",
+      "Pay-per-execution",
+      "Auto-scaling",
+      "Stateless functions",
+      "Cold starts"
+    ],
+    "advanced_signals": [
+      "Timeout limits",
+      "Memory allocation impact",
+      "Trigger types (HTTP, S3, SQS)"
+    ],
+    "common_misconceptions": [
+      "Thinking there are literally 'no servers' (someone else manages them)",
+      "Using serverless for tasks that take hours to run",
+      "Not realizing serverless functions can have 'cold start' delays"
+    ]
+  },
+  {
+    "concept": "GitHub Actions workflow basics",
+    "explanation": "GitHub Actions is a CI/CD (Continuous Integration / Continuous Deployment) tool that automates your software workflow. It allows you to run scripts automatically whenever something happens in your repository—like running tests when you open a Pull Request or deploying the app when you push to the 'main' branch. In a startup, this automation is the 'silent teammate' that ensures code quality. For a junior, understanding a basic `.yml` workflow file is a superpower. It shows you understand the 'path to production'—that code doesn't just sit on your computer; it has to be tested, built, and delivered to the user through a reliable, automated pipeline.",
+    "core_signals": [
+      "Automation",
+      "CI/CD pipeline",
+      "YAML configuration",
+      "Workflows/Jobs/Steps",
+      "Triggers (Push/PR)",
+      "Build/Test automation"
+    ],
+    "advanced_signals": [
+      "Secrets management",
+      "Matrix builds",
+      "Environment variables"
+    ],
+    "common_misconceptions": [
+      "Thinking GitHub Actions is only for testing",
+      "Forgetting that actions run in their own isolated environment",
+      "Manual deployment vs Automated deployment"
+    ]
+  },
+  {
+    "concept": "Agile and Scrum basics for freshers",
+    "explanation": "Agile is a mindset focused on iterative development and customer feedback, rather than one big 'waterfall' release. Scrum is the most popular framework for implementing Agile, using fixed-length periods called 'Sprints' (usually 2 weeks). For a fresher, the pragmatic goal of Scrum is to break down huge, scary projects into small, manageable 'User Stories.' It emphasizes 'People over Processes' and 'Working Software over Documentation.' In a startup, Agile allows the team to pivot quickly—if a feature isn't working, you find out in two weeks, not six months. Understanding these basics helps a junior fit into the team's rhythm and understand why priorities might shift frequently.",
+    "core_signals": [
+      "Iterative development",
+      "Sprints",
+      "User Stories",
+      "Feedback loops",
+      "Flexibility/Adaptability",
+      "Incremental value"
+    ],
+    "advanced_signals": [
+      "Definition of Done (DoD)",
+      "Velocity and Burndown",
+      "Scrum Roles (PO, SM, Dev)"
+    ],
+    "common_misconceptions": [
+      "Thinking Agile means 'no planning'",
+      "Confusing Scrum with a strict set of rules rather than a framework",
+      "Thinking the 'Daily Standup' is a status report for the boss"
+    ]
+  },
+  {
+    "concept": "Sprint planning and daily standups",
+    "explanation": "These are the core 'ceremonies' in Scrum. **Sprint Planning** happens at the start of a sprint where the team decides 'what' to build based on priority and 'how' they will build it. The **Daily Standup** is a quick (15-min) meeting where every developer answers: What did I do yesterday? What will I do today? Are there any blockers? For a junior, the standup is the best place to raise your hand if you're stuck. In a fast-moving startup, 'suffering in silence' is the biggest productivity killer. These meetings ensure everyone is aligned, blockers are removed quickly, and the team is actually working on the most important tasks for the business.",
+    "core_signals": [
+      "Blockers/Impediments",
+      "Alignment",
+      "Priority setting",
+      "Task breakdown",
+      "Team synchronization",
+      "Accountability"
+    ],
+    "advanced_signals": [
+      "Story point estimation",
+      "Capacity planning",
+      "Sprint Goal focus"
+    ],
+    "common_misconceptions": [
+      "Treating standup as a long technical discussion",
+      "Over-committing during sprint planning",
+      "Hiding blockers because you're embarrassed to be stuck"
+    ]
+  },
+  {
+    "concept": "Pair programming benefits",
+    "explanation": "Pair programming is a technique where two developers work together at one workstation. One (the 'Driver') writes the code, while the other (the 'Navigator') reviews each line, thinks about the bigger picture, and watches for errors. For a fresher, this is one of the fastest ways to learn 'the startup way.' It’s not just about writing code; it’s about learning how a senior thinks, how they use their IDE, and how they approach a complex bug. Pragmatically, it leads to higher code quality, fewer bugs reaching production, and better knowledge sharing across the team. It’s an investment in quality and team growth that pays off in more resilient systems.",
+    "core_signals": [
+      "Driver/Navigator roles",
+      "Knowledge sharing",
+      "Code quality",
+      "Real-time review",
+      "Mentorship",
+      "Collaborative problem solving"
+    ],
+    "advanced_signals": [
+      "Social dynamics/Soft skills",
+      "Rubber-ducking in real-time",
+      "Reduced technical debt"
+    ],
+    "common_misconceptions": [
+      "Thinking it's 'half as productive' (it's often more productive in the long run)",
+      "One person doing all the work while the other watches",
+      "Believing it's only for beginners"
+    ]
+  },
+  {
+    "concept": "Asking good questions in meetings",
+    "explanation": "In a startup, your time and your seniors' time is the most expensive resource. A 'Good Question' is structured: it shows you've done your research, explains what you've tried, and pinpoints exactly where you're stuck. Instead of saying 'This doesn't work,' say 'I'm trying to connect to the API using X, I've checked the docs and Y, but I'm getting error Z.' This shows ownership and initiative. For a junior, asking the 'right' questions at the right time—especially during technical discussions—signals that you are engaged, proactive, and committed to learning effectively without being a drain on team resources. It's about being 'efficiently curious.'",
+    "core_signals": [
+      "Context-rich",
+      "Due diligence",
+      "Ownership",
+      "Clarity",
+      "Timing",
+      "Active engagement"
+    ],
+    "advanced_signals": [
+      "Clarifying assumptions",
+      "Anticipating edge cases",
+      "Synthesizing information"
+    ],
+    "common_misconceptions": [
+      "Worrying that asking questions makes you look 'stupid'",
+      "Asking questions that could be answered by a 5-second Google search",
+      "Interrupting the flow for a minor detail that could wait"
+    ]
+  },
+  {
+    "concept": "Handling imposter syndrome",
+    "explanation": "Imposter syndrome—the feeling that you're a 'fraud' and don't belong—is incredibly common among freshers, especially in high-growth startups. The pragmatic way to handle it is to recognize that 'feeling like you know nothing' is actually a sign that you are in a high-growth environment. Every expert was once a confused junior. To combat it, focus on 'evidence' of your growth: track your small wins, keep a 'brag document' of things you've learned, and remember that you were hired because the team saw potential in you. In an interview context, acknowledging this shows emotional maturity and a growth mindset—traits that make you a resilient and coachable teammate over the long haul.",
+    "core_signals": [
+      "Growth mindset",
+      "Resilience",
+      "Emotional maturity",
+      "Evidence-based thinking",
+      "Vulnerability",
+      "Coachability"
+    ],
+    "advanced_signals": [
+      "Self-reflection",
+      "Peer support",
+      "Focusing on the 'Learning Curve'"
+    ],
+    "common_misconceptions": [
+      "Thinking only 'untalented' people feel this way",
+      "Assuming everyone else knows exactly what they're doing",
+      "Believing you have to know everything to be valuable"
+    ]
+  },
+  {
+    "concept": "Using AI coding assistants responsibly (2026 view)",
+    "explanation": "By 2026, tools like Copilot or ChatGPT are standard parts of the workflow. Responsible use means using AI as an 'accelerator,' not a 'replacement.' A pragmatic junior uses AI to boilerplate code, explain complex concepts, or suggest optimizations, but *always* reviews and understands every line the AI generates. You are responsible for the code you ship, regardless of who (or what) wrote it. The danger is 'AI-induced technical debt'—copy-pasting code that works but you don't understand, which becomes impossible to debug later. The hallmark of a high-quality SDE is the ability to use AI to work 2x faster while maintaining 100% ownership of the logic and security.",
+    "core_signals": [
+      "Code ownership",
+      "Critical review",
+      "Augmentation over Automation",
+      "Verification",
+      "Security awareness",
+      "Understanding 'Why'"
+    ],
+    "advanced_signals": [
+      "Prompt engineering",
+      "Spotting AI hallucinations",
+      "Licensing/IP awareness"
+    ],
+    "common_misconceptions": [
+      "Blindly trusting AI-generated code",
+      "Using AI for everything without learning the basics",
+      "Thinking AI makes 'learning how to code' obsolete"
+    ]
+  },
+  {
+    "concept": "AI in software development trends for freshers",
+    "explanation": "In 2026, the trend has shifted from 'writing code' to 'system orchestration' and 'problem modeling.' AI handles the syntax; humans handle the semantics, architecture, and user needs. For a fresher, this means your value lies more in your 'logical thinking' and 'architectural intuition' than in memorizing library APIs. Trends include AI-powered testing, automated bug fixing, and natural language interfaces for databases. Pragmatically, a junior should stay 'AI-literate'—keep up with new tools, understand how LLMs work at a high level, and focus on the skills AI still struggles with: complex systems design, understanding nuanced business requirements, and deeply empathetic collaboration within a human team.",
+    "core_signals": [
+      "System orchestration",
+      "Architectural intuition",
+      "AI literacy",
+      "Adaptability",
+      "Human-centric value",
+      "Future-proofing"
+    ],
+    "advanced_signals": [
+      "Agentic workflows",
+      "Socio-technical systems",
+      "Continuous learning"
+    ],
+    "common_misconceptions": [
+      "Fear that SDE jobs will disappear entirely",
+      "Thinking the 'old' fundamentals don't matter anymore",
+      "Focusing only on the tool rather than the problem it solves"
+    ]
+  },
+  {
+    "concept": "Retry strategies with backoff & jitter",
+    "explanation": "In distributed systems, transient failures (like network blips or temporary service overload) are common. A retry strategy attempts the operation again instead of failing immediately. 'Exponential Backoff' increases the wait time between retries (e.g., 1s, 2s, 4s) to avoid overwhelming a struggling downstream service. 'Jitter' adds a random delay to these intervals to prevent the 'Thundering Herd' problem, where many clients retry at the exact same moment. For a junior SDE, implementing this ensures system resilience. It’s the difference between a system that crashes during a minor spike and one that gracefully recovers by spreading out the load of re-attempts.",
+    "core_signals": [
+      "Transient failures",
+      "Exponential backoff",
+      "Thundering herd",
+      "Randomized delay",
+      "Resource exhaustion",
+      "Self-healing"
+    ],
+    "advanced_signals": [
+      "Idempotency requirements",
+      "Max retry limits",
+      "Impact on user-perceived latency"
+    ],
+    "common_misconceptions": [
+      "Retrying indefinitely",
+      "Retrying non-transient errors (like 400 Bad Request)",
+      "Omitting jitter in high-concurrency systems"
+    ]
+  },
+  {
+    "concept": "Circuit breakers and bulkheads",
+    "explanation": "These are patterns for fault tolerance. A 'Circuit Breaker' stops a service from attempting an operation that is likely to fail, 'tripping' after a threshold of errors to allow the failing service time to recover. A 'Bulkhead' isolates resources (like thread pools or memory) so that if one component fails or hangs, it doesn't consume all system resources and bring down unrelated features. In a startup, these are essential for preventing 'cascading failures.' A junior should understand that these patterns protect the overall system health by failing fast and containing the blast radius of any single service's issues.",
+    "core_signals": [
+      "Cascading failures",
+      "Fail-fast",
+      "Resource isolation",
+      "Error thresholds",
+      "State: Open, Closed, Half-Open",
+      "Blast radius"
+    ],
+    "advanced_signals": [
+      "Fallback mechanisms",
+      "Timeout management",
+      "Thread pool saturation"
+    ],
+    "common_misconceptions": [
+      "Thinking circuit breakers fix the underlying bug",
+      "Confusing circuit breakers with simple retries",
+      "Applying bulkheads only to external APIs"
+    ]
+  },
+  {
+    "concept": "Dead letter queues (DLQ)",
+    "explanation": "A Dead Letter Queue is a specialized queue where messages that cannot be processed successfully (after multiple retries) are moved. This prevents a 'poison pill' message from clogging the main processing pipeline and crashing workers repeatedly. For a junior SDE, the DLQ is a safety net for asynchronous processing. It allows the system to continue handling healthy messages while isolating problematic ones for manual inspection or later reprocessing. Pragmatically, it’s a crucial tool for observability and debugging in any event-driven startup architecture.",
+    "core_signals": [
+      "Poison pill messages",
+      "Message isolation",
+      "Async failure handling",
+      "Manual intervention",
+      "Pipeline throughput",
+      "Redrive policy"
+    ],
+    "advanced_signals": [
+      "Root cause analysis",
+      "TTL (Time to Live) on messages",
+      "Automated DLQ monitoring"
+    ],
+    "common_misconceptions": [
+      "Thinking messages go to DLQ on the first failure",
+      "Using DLQ as a permanent storage for failed data",
+      "Forgetting to monitor the size of the DLQ"
+    ]
+  },
+  {
+    "concept": "Exactly-once vs at-least-once delivery",
+    "explanation": "This describes guarantees in messaging systems. 'At-least-once' ensures a message is delivered but might result in duplicates if the acknowledgement fails. 'Exactly-once' ensures the message is processed exactly one time, which is much harder to achieve and often requires idempotent logic or distributed transactions. In a pragmatic startup, 'at-least-once' combined with 'idempotency' (making the operation safe to repeat) is the most common and scalable approach. A junior should recognize that true exactly-once is expensive and usually not the default, necessitating careful design of downstream consumers to handle potential duplicates.",
+    "core_signals": [
+      "Message duplication",
+      "Acknowledge (ACK) mechanisms",
+      "Idempotency",
+      "Consumer side-effects",
+      "Distributed consensus",
+      "Delivery semantics"
+    ],
+    "advanced_signals": [
+      "Two-phase commit",
+      "Transaction IDs",
+      "Throughput trade-offs"
+    ],
+    "common_misconceptions": [
+      "Assuming 'Exactly-once' is the default for all brokers",
+      "Thinking exactly-once is purely a infrastructure feature",
+      "Ignoring duplicates in financial or state-changing operations"
+    ]
+  },
+  {
+    "concept": "Saga pattern",
+    "explanation": "The Saga pattern manages long-running transactions that span multiple microservices. Since distributed transactions (ACID) are difficult to scale, a Saga breaks a business process into a sequence of local transactions. Each step has a 'compensating transaction' to undo the changes if a later step fails (e.g., if a payment fails, the Saga triggers an 'untax' or 'unreserve' step). For a junior SDE, this is the go-to for maintaining 'eventual consistency.' It’s the pragmatic way to handle complex flows like e-commerce checkouts across inventory, payment, and shipping services without locking up the entire system.",
+    "core_signals": [
+      "Eventual consistency",
+      "Compensating transactions",
+      "Distributed workflows",
+      "Choreography vs Orchestration",
+      "Local transactions",
+      "Rollback logic"
+    ],
+    "advanced_signals": [
+      "State machine transitions",
+      "Outbox integration",
+      "Semantic lock avoidance"
+    ],
+    "common_misconceptions": [
+      "Thinking Sagas provide immediate ACID consistency",
+      "Confusing a Saga with a simple retry loop",
+      "Forgetting to design the 'undo' steps properly"
+    ]
+  },
+  {
+    "concept": "Outbox pattern",
+    "explanation": "The Outbox pattern ensures atomicity between a database update and sending a message to a broker. Instead of updating the DB and then calling the message broker (which could fail), you save the message in a special 'Outbox' table within the *same* database transaction. A separate relay process then polls this table and publishes to the broker. This prevents the 'dual-write' problem where a database update succeeds but the event notification is lost. For a junior, this is a marker of high-quality distributed engineering, ensuring that the rest of the system stays in sync with the primary database.",
+    "core_signals": [
+      "Dual-write problem",
+      "Transaction atomicity",
+      "Reliable messaging",
+      "Polling vs Change Data Capture (CDC)",
+      "Message relay",
+      "Eventual consistency"
+    ],
+    "advanced_signals": [
+      "Idempotent publishing",
+      "Debezium/CDC tools",
+      "Message ordering guarantees"
+    ],
+    "common_misconceptions": [
+      "Sending messages directly inside a DB transaction block",
+      "Thinking the outbox is just a cache",
+      "Underestimating the complexity of the relay service"
+    ]
+  },
+  {
+    "concept": "Request tracing (correlation IDs)",
+    "explanation": "In a microservices architecture, a single user request might travel through dozens of services. A 'Correlation ID' is a unique identifier generated at the start of the request and passed in headers to every downstream service. This ID is included in every log message. For a junior SDE, this is the 'ultimate debugging key.' When a user reports an error, you search for that specific Correlation ID in your centralized logging tool to see the exact path and state of that request across the entire system. It turns a needle-in-a-haystack search into a clear, chronological story of a request's life.",
+    "core_signals": [
+      "Trace ID",
+      "Propagation",
+      "Distributed debugging",
+      "Log aggregation",
+      "Request lifecycle",
+      "Context passing"
+    ],
+    "advanced_signals": [
+      "Baggage/Context headers",
+      "Spans and parents",
+      "OpenTelemetry standards"
+    ],
+    "common_misconceptions": [
+      "Thinking IDs are only for the frontend",
+      "Manually creating new IDs in every service (instead of passing them)",
+      "Confusing Correlation IDs with User IDs"
+    ]
+  },
+  {
+    "concept": "Structured logging",
+    "explanation": "Structured logging is the practice of outputting logs in a machine-readable format (usually JSON) rather than plain text strings. Instead of logging `User 123 logged in from 1.1.1.1`, you log `{\"event\": \"login\", \"user_id\": 123, \"ip\": \"1.1.1.1\"}`. In a startup, this is vital because it allows tools like ELK or Datadog to index every field. A junior who uses structured logging enables the team to create dashboards, set alerts on specific fields, and query logs with high precision. It transforms logs from a 'wall of text' into a searchable database of application behavior.",
+    "core_signals": [
+      "JSON logs",
+      "Machine-readable",
+      "Key-value pairs",
+      "Searchability",
+      "Log indexing",
+      "Alerting/Dashboards"
+    ],
+    "advanced_signals": [
+      "Context enrichment",
+      "Log sampling",
+      "Standardized schemas"
+    ],
+    "common_misconceptions": [
+      "Thinking structured logging is just 'prettier' strings",
+      "Concatenating strings into JSON keys",
+      "Neglecting to log numbers as integers instead of strings"
+    ]
+  },
+  {
+    "concept": "Centralized logs (ELK stack)",
+    "explanation": "Centralized logging collects logs from all your servers, containers, and services into a single, searchable location. The ELK stack (Elasticsearch, Logstash/Fluentd, Kibana) is a standard example. For a junior SDE, this means you no longer have to SSH into individual servers to 'tail' log files. Pragmatically, it provides a 'global view' of the system. In an interview, mentioning centralized logging shows you understand how to operate at scale—where logs are not just for local debugging but for monitoring the health and security of a distributed production environment.",
+    "core_signals": [
+      "Log aggregation",
+      "Indexing",
+      "Kibana dashboards",
+      "Search/Filter",
+      "Operational visibility",
+      "Real-time monitoring"
+    ],
+    "advanced_signals": [
+      "Retention policies",
+      "Log shipping/Forwarders",
+      "Cost vs Visibility trade-offs"
+    ],
+    "common_misconceptions": [
+      "Thinking ELK is just for searching text",
+      "Logging too much data and blowing up the storage costs",
+      "Forgetting to redact PII before shipping to ELK"
+    ]
+  },
+  {
+    "concept": "Distributed tracing (OpenTelemetry)",
+    "explanation": "Distributed tracing captures the 'spans' or time segments of a request as it flows through different services, databases, and caches. OpenTelemetry is the open standard for collecting this data. While logging tells you *what* happened, tracing tells you *where* the time was spent. For a junior, this is the primary tool for performance optimization. It allows you to see, for example, that an API is slow because a specific database query took 800ms. Pragmatically, it visualizes the 'latency bottlenecks' in complex systems, making it clear which part of the stack needs attention.",
+    "core_signals": [
+      "Spans",
+      "Parent-child relationships",
+      "Latency bottlenecks",
+      "Flame graphs",
+      "Observability standards",
+      "Instrumentation"
+    ],
+    "advanced_signals": [
+      "Sampling rates",
+      "Trace context propagation",
+      "Resource attributes"
+    ],
+    "common_misconceptions": [
+      "Thinking tracing is the same as logging",
+      "Instrumenting everything and causing performance overhead",
+      "Not understanding that tracing requires correlation across services"
+    ]
+  }
+]

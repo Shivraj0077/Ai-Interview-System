@@ -1,0 +1,18 @@
+Item at index 52 is not a dict: <class 'str'> - concept
+Item at index 53 is not a dict: <class 'str'> - Why indexing improves query speed
+Item at index 54 is not a dict: <class 'str'> - explanation
+Item at index 55 is not a dict: <class 'str'> - core_signals
+Item at index 56 is not a dict: <class 'str'> - B-Tree data structure
+Item at index 57 is not a dict: <class 'str'> - Full Table Scan vs Index Seek
+Item at index 58 is not a dict: <class 'str'> - O(log N) search complexity
+Item at index 59 is not a dict: <class 'str'> - Write overhead / Disk space
+Item at index 60 is not a dict: <class 'str'> - Primary vs Secondary indexes
+Item at index 61 is not a dict: <class 'str'> - Clustered vs Non-clustered
+Item at index 62 is not a dict: <class 'str'> - advanced_signals
+Item at index 63 is not a dict: <class 'str'> - Composite indexes and column order
+Item at index 64 is not a dict: <class 'str'> - Index selectivity and cardinality
+Item at index 65 is not a dict: <class 'str'> - Covering indexes
+Item at index 66 is not a dict: <class 'str'> - common_misconceptions
+Item at index 67 is not a dict: <class 'str'> - Indexing every single column
+Item at index 68 is not a dict: <class 'str'> - Thinking indexes speed up Insert/Update operations
+Item at index 69 is not a dict: <class 'str'> - Assuming indexes don't take up any disk space
