@@ -5,8 +5,8 @@ from supabase import create_client
 # ==========================
 # CONFIG
 # ==========================
-SUPABASE_URL = "https://kziigtohxtnbmqfwteyh.supabase.co"
-SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt6aWlndG9oeHRuYm1xZnd0ZXloIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3MjQ1NjEyNiwiZXhwIjoyMDg4MDMyMTI2fQ.HbcJTOzyg-4aYw3ZE4viGl-OntvDdtkb7UCS5YrViWI"
+SUPABASE_URL = os.getenv("SUPABASE_URL")
+SUPABASE_KEY = os.getenv("SUPABASE_KEY")
 INPUT_FILE = "final-chunks.json"
 
 # ==========================
