@@ -1,6 +1,5 @@
 # AI Interview System
 
-[![Ask DeepWiki](https://devin.ai/assets/askdeepwiki.png)](https://deepwiki.com/Shivraj0077/Ai-Interview-System.git)
 
 This project is an adaptive AI-powered technical interview system designed to simulate a real-world software engineering interview. It dynamically selects questions, evaluates candidate responses, and adjusts the difficulty level based on performance. The system is built around a robust knowledge base of technical concepts and uses large language models for generating questions and providing nuanced evaluations.
 
