@@ -1,6 +1,13 @@
+# Superseded by load_knowledge_base.py (single step, signal lists taken from Rag-db.json).
+# Kept for reference; running it is not needed.
+
 import json
+import os
 import re
+from dotenv import load_dotenv
 from supabase import create_client
+
+load_dotenv()
 
 # ==========================
 # CONFIG

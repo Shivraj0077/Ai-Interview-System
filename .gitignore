@@ -3,3 +3,8 @@ venv312/
 __pycache__/
 *.pyc
 .env
+.venv/
+node_modules/
+.next/
+.local-data/
+.env.local
